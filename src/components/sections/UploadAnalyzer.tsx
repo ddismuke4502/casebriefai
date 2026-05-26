@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   CheckCircle2,
   FileText,
@@ -48,55 +49,75 @@ export default function UploadAnalyzer() {
   const isComplete = status === "complete";
   const isIdle = status === "idle";
 
-  useEffect(() => {
-    const section = sectionRef.current;
+useEffect(() => {
+  const section = sectionRef.current;
 
-    if (!section) return;
+  if (!section) return;
 
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
 
-    if (prefersReducedMotion) return;
+  if (prefersReducedMotion) return;
 
-    const ctx = gsap.context(() => {
-      gsap.from(".upload-copy", {
+  gsap.registerPlugin(ScrollTrigger);
+
+  const ctx = gsap.context(() => {
+    const timeline = gsap.timeline({
+      defaults: {
+        ease: "power3.out",
+      },
+      scrollTrigger: {
+        trigger: section,
+        start: "top 78%",
+        once: true,
+      },
+    });
+
+    timeline
+      .from(".upload-copy", {
         y: 28,
         opacity: 0,
-        duration: 0.8,
+        duration: 0.75,
         stagger: 0.12,
-        ease: "power3.out",
-      });
+      })
+      .from(
+        ".upload-card",
+        {
+          y: 36,
+          opacity: 0,
+          duration: 0.85,
+        },
+        "-=0.45",
+      )
+      .from(
+        ".scan-step-row",
+        {
+          x: 24,
+          opacity: 0,
+          duration: 0.5,
+          stagger: 0.06,
+        },
+        "-=0.35",
+      );
 
-      gsap.from(".upload-card", {
-        y: 36,
-        opacity: 0,
-        duration: 0.9,
-        delay: 0.15,
-        ease: "power3.out",
-      });
+    gsap.to(".scanner-orb", {
+      scale: 1.12,
+      opacity: 0.75,
+      duration: 1.4,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      scrollTrigger: {
+        trigger: section,
+        start: "top 78%",
+        toggleActions: "play pause resume pause",
+      },
+    });
+  }, section);
 
-      gsap.from(".scan-step-row", {
-        x: 24,
-        opacity: 0,
-        duration: 0.55,
-        stagger: 0.06,
-        delay: 0.35,
-        ease: "power3.out",
-      });
-
-      gsap.to(".scanner-orb", {
-        scale: 1.12,
-        opacity: 0.75,
-        duration: 1.4,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-    }, section);
-
-    return () => ctx.revert();
-  }, []);
+  return () => ctx.revert();
+}, []);
 
   useEffect(() => {
     const section = sectionRef.current;
