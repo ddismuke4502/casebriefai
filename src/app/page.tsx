@@ -1,5 +1,6 @@
 import ProgressBar from "@/components/ui/ProgressBar";
 import AnalysisDashboard from "@/components/sections/AnalysisDashboard";
+import EvidenceChecklist from "@/components/sections/EvidenceChecklist";
 import IssueSpottingSection from "@/components/sections/IssueSpottingSection";
 import TimelineSection from "@/components/sections/TimelineSection";
 import UploadAnalyzer from "@/components/sections/UploadAnalyzer";
@@ -202,6 +203,8 @@ export default function Home() {
       <TimelineSection />
 
       <IssueSpottingSection />
+
+      <EvidenceChecklist />
 
       <section id="workflow" className="px-6 pb-20 md:px-10">
         <div className="mx-auto max-w-7xl rounded-[2rem] border border-case-border bg-case-surface/70 p-6 md:p-10">
