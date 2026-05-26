@@ -1,4 +1,5 @@
 import ProgressBar from "@/components/ui/ProgressBar";
+import AnalysisDashboard from "@/components/sections/AnalysisDashboard";
 import UploadAnalyzer from "@/components/sections/UploadAnalyzer";
 
 import {
@@ -194,44 +195,7 @@ export default function Home() {
 
       <UploadAnalyzer />
 
-      <section id="analysis" className="px-6 py-20 md:px-10">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-10 max-w-2xl">
-            <p className="text-sm font-bold uppercase tracking-[0.32em] text-case-gold">
-              Core System
-            </p>
-            <h2 className="mt-3 text-4xl font-black md:text-5xl">
-              Built like a legal command center.
-            </h2>
-            <p className="mt-4 text-case-muted">
-              The MVP will guide users through a full mock analysis workflow:
-              upload, scan, extract, review, organize, and export.
-            </p>
-          </div>
-
-          <div className="grid gap-5 md:grid-cols-3">
-            {featureCards.map((feature) => {
-              const Icon = feature.icon;
-
-              return (
-                <article
-                  key={feature.title}
-                  className="case-card rounded-3xl p-6"
-                >
-                  <div className="mb-5 flex size-12 items-center justify-center rounded-2xl border border-case-border bg-black/40">
-                    <Icon className="size-6 text-case-gold" />
-                  </div>
-
-                  <h3 className="text-xl font-black">{feature.title}</h3>
-                  <p className="mt-3 leading-7 text-case-muted">
-                    {feature.description}
-                  </p>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      <AnalysisDashboard />
 
       <section id="workflow" className="px-6 pb-20 md:px-10">
         <div className="mx-auto max-w-7xl rounded-[2rem] border border-case-border bg-case-surface/70 p-6 md:p-10">
