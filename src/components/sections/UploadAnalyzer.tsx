@@ -35,7 +35,17 @@ const activeStatuses: ScanStatus[] = [
   "spottingIssues",
 ];
 
-export default function UploadAnalyzer() {
+type UploadAnalyzerProps = {
+  onAnalysisStart?: () => void;
+  onAnalysisComplete?: () => void;
+  onAnalysisReset?: () => void;
+};
+
+export default function UploadAnalyzer({
+  onAnalysisStart,
+  onAnalysisComplete,
+  onAnalysisReset,
+}: UploadAnalyzerProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
 
   const [status, setStatus] = useState<ScanStatus>("idle");
@@ -49,75 +59,75 @@ export default function UploadAnalyzer() {
   const isComplete = status === "complete";
   const isIdle = status === "idle";
 
-useEffect(() => {
-  const section = sectionRef.current;
+  useEffect(() => {
+    const section = sectionRef.current;
 
-  if (!section) return;
+    if (!section) return;
 
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
-  if (prefersReducedMotion) return;
+    if (prefersReducedMotion) return;
 
-  gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger);
 
-  const ctx = gsap.context(() => {
-    const timeline = gsap.timeline({
-      defaults: {
-        ease: "power3.out",
-      },
-      scrollTrigger: {
-        trigger: section,
-        start: "top 78%",
-        once: true,
-      },
-    });
-
-    timeline
-      .from(".upload-copy", {
-        y: 28,
-        opacity: 0,
-        duration: 0.75,
-        stagger: 0.12,
-      })
-      .from(
-        ".upload-card",
-        {
-          y: 36,
-          opacity: 0,
-          duration: 0.85,
+    const ctx = gsap.context(() => {
+      const timeline = gsap.timeline({
+        defaults: {
+          ease: "power3.out",
         },
-        "-=0.45",
-      )
-      .from(
-        ".scan-step-row",
-        {
-          x: 24,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.06,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 78%",
+          once: true,
         },
-        "-=0.35",
-      );
+      });
 
-    gsap.to(".scanner-orb", {
-      scale: 1.12,
-      opacity: 0.75,
-      duration: 1.4,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      scrollTrigger: {
-        trigger: section,
-        start: "top 78%",
-        toggleActions: "play pause resume pause",
-      },
-    });
-  }, section);
+      timeline
+        .from(".upload-copy", {
+          y: 28,
+          opacity: 0,
+          duration: 0.75,
+          stagger: 0.12,
+        })
+        .from(
+          ".upload-card",
+          {
+            y: 36,
+            opacity: 0,
+            duration: 0.85,
+          },
+          "-=0.45",
+        )
+        .from(
+          ".scan-step-row",
+          {
+            x: 24,
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.06,
+          },
+          "-=0.35",
+        );
 
-  return () => ctx.revert();
-}, []);
+      gsap.to(".scanner-orb", {
+        scale: 1.12,
+        opacity: 0.75,
+        duration: 1.4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 78%",
+          toggleActions: "play pause resume pause",
+        },
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -184,6 +194,7 @@ useEffect(() => {
   const runMockScan = async () => {
     if (isRunning) return;
 
+    onAnalysisStart?.();
     setIsRunning(true);
 
     for (const nextStatus of scanOrder.slice(1)) {
@@ -192,11 +203,13 @@ useEffect(() => {
     }
 
     setIsRunning(false);
+    onAnalysisComplete?.();
   };
 
   const resetScan = () => {
     setStatus("idle");
     setIsRunning(false);
+    onAnalysisReset?.();
   };
 
   return (
@@ -239,9 +252,7 @@ useEffect(() => {
                   AI Case Scanner
                 </div>
 
-                <h3 className="mt-4 text-2xl font-black">
-                  demo-case-file.pdf
-                </h3>
+                <h3 className="mt-4 text-2xl font-black">demo-case-file.pdf</h3>
 
                 <p className="mt-2 text-sm leading-6 text-case-muted">
                   Simulated legal packet containing incident notes, party

@@ -1,13 +1,8 @@
 import ProgressBar from "@/components/ui/ProgressBar";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import AnalysisDashboard from "@/components/sections/AnalysisDashboard";
-import EvidenceChecklist from "@/components/sections/EvidenceChecklist";
-import ExportSummary from "@/components/sections/ExportSummary";
+import CaseBriefExperience from "@/components/CaseBriefExperience";
 import HeroSection from "@/components/sections/HeroSection";
-import IssueSpottingSection from "@/components/sections/IssueSpottingSection";
-import TimelineSection from "@/components/sections/TimelineSection";
-import UploadAnalyzer from "@/components/sections/UploadAnalyzer";
 
 import {
   ArrowRight,
@@ -57,17 +52,7 @@ export default function Home() {
 
       <HeroSection />
 
-      <UploadAnalyzer />
-
-      <AnalysisDashboard />
-
-      <TimelineSection />
-
-      <IssueSpottingSection />
-
-      <EvidenceChecklist />
-
-      <ExportSummary />
+      <CaseBriefExperience />
 
       <Footer />
 
