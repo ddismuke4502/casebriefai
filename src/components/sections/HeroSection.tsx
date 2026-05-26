@@ -48,10 +48,6 @@ export default function HeroSection() {
       });
 
       timeline
-        .from(".hero-nav", {
-          y: -24,
-          opacity: 0,
-        })
         .from(
           ".hero-eyebrow",
           {
@@ -143,41 +139,9 @@ export default function HeroSection() {
       <div className="hero-signal pointer-events-none absolute left-1/2 top-20 size-[32rem] -translate-x-1/2 rounded-full bg-case-gold/5 blur-3xl" />
       <div className="pointer-events-none absolute right-0 top-0 size-[24rem] rounded-full bg-case-red/5 blur-3xl" />
 
-      <nav className="hero-nav relative z-10 mx-auto flex max-w-7xl items-center justify-between rounded-2xl border border-case-border bg-black/45 px-5 py-4 backdrop-blur-md">
-        <div className="flex items-center gap-3">
-          <div className="flex size-10 items-center justify-center rounded-xl border border-case-border bg-case-gunmetal case-glow">
-            <Scale className="size-5 text-case-gold" />
-          </div>
+      
 
-          <div>
-            <p className="text-sm font-bold tracking-[0.28em] text-case-gold">
-              CASEBRIEF AI
-            </p>
-            <p className="text-xs text-case-muted">Noir Legal Intelligence</p>
-          </div>
-        </div>
-
-        <div className="hidden items-center gap-6 text-sm text-case-muted md:flex">
-          <a href="#analyzer" className="transition hover:text-case-gold">
-            Analyzer
-          </a>
-          <a href="#analysis" className="transition hover:text-case-gold">
-            Facts
-          </a>
-          <a href="#disclaimer" className="transition hover:text-case-gold">
-            Disclaimer
-          </a>
-        </div>
-
-        <a
-          href="#analyzer"
-          className="redline-button rounded-full px-4 py-2 text-sm font-semibold"
-        >
-          View Demo
-        </a>
-      </nav>
-
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 py-20 md:grid-cols-[1.05fr_0.95fr] md:py-28">
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 py-20 md:grid-cols-[1.05fr_0.95fr] md:py-24">
         <div>
           <div className="hero-eyebrow mb-6 inline-flex items-center gap-2 rounded-full border border-case-border bg-case-gunmetal/80 px-4 py-2 text-sm text-case-muted">
             <Sparkles className="size-4 text-case-gold" />
