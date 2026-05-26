@@ -1,6 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   CheckCircle2,
   Clipboard,
@@ -15,6 +17,8 @@ import {
 import { mockCaseAnalysis } from "@/data/mockCaseData";
 
 export default function ExportSummary() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
   const [hasGenerated, setHasGenerated] = useState(false);
   const [hasCopied, setHasCopied] = useState(false);
 
@@ -38,49 +42,213 @@ export default function ExportSummary() {
     ].join("\n");
   }, [summary]);
 
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (prefersReducedMotion) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      gsap.from(".export-header-item", {
+        y: 28,
+        opacity: 0,
+        duration: 0.75,
+        stagger: 0.12,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 78%",
+          once: true,
+        },
+      });
+
+      gsap.from(".export-control-panel", {
+        x: -34,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".export-layout",
+          start: "top 78%",
+          once: true,
+        },
+      });
+
+      gsap.from(".export-preview-panel", {
+        x: 34,
+        opacity: 0,
+        duration: 0.8,
+        delay: 0.08,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".export-layout",
+          start: "top 78%",
+          once: true,
+        },
+      });
+
+      gsap.from(".export-action-button", {
+        y: 16,
+        opacity: 0,
+        duration: 0.45,
+        stagger: 0.06,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".export-action-list",
+          start: "top 84%",
+          once: true,
+        },
+      });
+
+      gsap.to(".export-lock-pulse", {
+        scale: 1.1,
+        opacity: 0.7,
+        duration: 1.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section || !hasGenerated) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      const timeline = gsap.timeline({
+        defaults: {
+          ease: "power3.out",
+        },
+      });
+
+      timeline
+        .fromTo(
+          ".export-generated-shell",
+          {
+            y: 24,
+            opacity: 0,
+            scale: 0.985,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+          },
+        )
+        .from(
+          ".export-summary-block",
+          {
+            y: 24,
+            opacity: 0,
+            duration: 0.55,
+            stagger: 0.1,
+          },
+          "-=0.25",
+        )
+        .from(
+          ".export-finding-row",
+          {
+            x: 18,
+            opacity: 0,
+            duration: 0.42,
+            stagger: 0.06,
+          },
+          "-=0.2",
+        )
+        .from(
+          ".export-review-area",
+          {
+            y: 16,
+            opacity: 0,
+            duration: 0.42,
+            stagger: 0.06,
+          },
+          "-=0.15",
+        );
+
+      gsap.fromTo(
+        ".export-success-icon",
+        {
+          scale: 0.4,
+          rotate: -18,
+          opacity: 0,
+        },
+        {
+          scale: 1,
+          rotate: 0,
+          opacity: 1,
+          duration: 0.55,
+          ease: "back.out(1.8)",
+        },
+      );
+    }, section);
+
+    return () => ctx.revert();
+  }, [hasGenerated]);
+
   const handleGenerate = () => {
     setHasGenerated(true);
   };
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(exportText);
-    setHasCopied(true);
+    try {
+      await navigator.clipboard.writeText(exportText);
+      setHasCopied(true);
 
-    window.setTimeout(() => {
+      window.setTimeout(() => {
+        setHasCopied(false);
+      }, 1600);
+    } catch {
       setHasCopied(false);
-    }, 1600);
+    }
   };
 
   return (
-    <section id="export" className="px-6 py-20 md:px-10">
+    <section ref={sectionRef} id="export" className="px-6 py-20 md:px-10">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.32em] text-case-gold">
+            <p className="export-header-item text-sm font-bold uppercase tracking-[0.32em] text-case-gold">
               Export Summary
             </p>
 
-            <h2 className="mt-3 text-4xl font-black leading-tight md:text-5xl">
+            <h2 className="export-header-item mt-3 text-4xl font-black leading-tight md:text-5xl">
               Turn the analysis into a clean review packet.
             </h2>
           </div>
 
-          <p className="leading-8 text-case-muted">
+          <p className="export-header-item leading-8 text-case-muted">
             The export flow simulates how CaseBrief AI would package extracted
             facts, issue flags, missing evidence, and review recommendations
             into a structured summary for human review.
           </p>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
-          <aside className="case-card h-fit rounded-[2rem] p-6">
-            <div className="flex size-14 items-center justify-center rounded-2xl border border-case-border bg-case-gunmetal">
+        <div className="export-layout grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
+          <aside className="export-control-panel case-card h-fit rounded-[2rem] p-6">
+            <div className="export-lock-pulse flex size-14 items-center justify-center rounded-2xl border border-case-border bg-case-gunmetal">
               <FileText className="size-7 text-case-gold" />
             </div>
 
-            <h3 className="mt-6 text-2xl font-black">
-              Export Controls
-            </h3>
+            <h3 className="mt-6 text-2xl font-black">Export Controls</h3>
 
             <p className="mt-4 leading-7 text-case-muted">
               Generate a mock case review packet from the structured analysis.
@@ -90,19 +258,19 @@ export default function ExportSummary() {
 
             <div className="case-divider my-6" />
 
-            <div className="space-y-3">
+            <div className="export-action-list space-y-3">
               <button
                 onClick={handleGenerate}
-                className="signal-button flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-black"
+                className="export-action-button signal-button flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-black"
               >
                 <Sparkles className="size-5" />
-                Generate Summary
+                {hasGenerated ? "Regenerate Summary" : "Generate Summary"}
               </button>
 
               <button
                 onClick={handleCopy}
                 disabled={!hasGenerated}
-                className="redline-button flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-50"
+                className="export-action-button redline-button flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {hasCopied ? (
                   <>
@@ -119,7 +287,7 @@ export default function ExportSummary() {
 
               <button
                 disabled={!hasGenerated}
-                className="redline-button flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-50"
+                className="export-action-button redline-button flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <Download className="size-5" />
                 Mock Export PDF
@@ -127,7 +295,7 @@ export default function ExportSummary() {
 
               <button
                 disabled={!hasGenerated}
-                className="redline-button flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-50"
+                className="export-action-button redline-button flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <Printer className="size-5" />
                 Print Preview
@@ -145,13 +313,7 @@ export default function ExportSummary() {
             </div>
           </aside>
 
-          <div
-            className={`case-card rounded-[2rem] p-5 transition duration-700 ${
-              hasGenerated
-                ? "translate-y-0 opacity-100"
-                : "translate-y-4 opacity-80"
-            }`}
-          >
+          <div className="export-preview-panel case-card rounded-[2rem] p-5">
             <div className="rounded-[1.5rem] border border-case-border bg-black/45 p-5 md:p-7">
               <div className="mb-6 flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
                 <div>
@@ -161,7 +323,9 @@ export default function ExportSummary() {
                   </div>
 
                   <h3 className="mt-5 text-3xl font-black">
-                    {hasGenerated ? summary.title : "Summary waiting to generate"}
+                    {hasGenerated
+                      ? summary.title
+                      : "Summary waiting to generate"}
                   </h3>
 
                   <p className="mt-3 max-w-2xl leading-7 text-case-muted">
@@ -179,7 +343,7 @@ export default function ExportSummary() {
                   }`}
                 >
                   {hasGenerated ? (
-                    <CheckCircle2 className="size-7 text-case-green" />
+                    <CheckCircle2 className="export-success-icon size-7 text-case-green" />
                   ) : (
                     <FileText className="size-7 text-case-gold" />
                   )}
@@ -198,8 +362,8 @@ export default function ExportSummary() {
                   </p>
                 </div>
               ) : (
-                <div className="space-y-6">
-                  <article className="rounded-[1.5rem] border border-case-border bg-case-gunmetal/40 p-5">
+                <div className="export-generated-shell space-y-6">
+                  <article className="export-summary-block rounded-[1.5rem] border border-case-border bg-case-gunmetal/40 p-5">
                     <p className="text-xs font-bold uppercase tracking-[0.24em] text-case-gold">
                       Overview
                     </p>
@@ -209,7 +373,7 @@ export default function ExportSummary() {
                     </p>
                   </article>
 
-                  <article className="rounded-[1.5rem] border border-case-border bg-case-gunmetal/40 p-5">
+                  <article className="export-summary-block rounded-[1.5rem] border border-case-border bg-case-gunmetal/40 p-5">
                     <p className="text-xs font-bold uppercase tracking-[0.24em] text-case-gold">
                       Key Findings
                     </p>
@@ -218,7 +382,7 @@ export default function ExportSummary() {
                       {summary.keyFindings.map((finding) => (
                         <div
                           key={finding}
-                          className="flex gap-3 rounded-2xl border border-case-border bg-black/35 p-4"
+                          className="export-finding-row flex gap-3 rounded-2xl border border-case-border bg-black/35 p-4"
                         >
                           <CheckCircle2 className="mt-1 size-5 shrink-0 text-case-gold" />
                           <p className="text-sm leading-6 text-case-muted">
@@ -229,7 +393,7 @@ export default function ExportSummary() {
                     </div>
                   </article>
 
-                  <article className="rounded-[1.5rem] border border-case-border bg-case-gunmetal/40 p-5">
+                  <article className="export-summary-block rounded-[1.5rem] border border-case-border bg-case-gunmetal/40 p-5">
                     <p className="text-xs font-bold uppercase tracking-[0.24em] text-case-gold">
                       Recommended Review Areas
                     </p>
@@ -238,7 +402,7 @@ export default function ExportSummary() {
                       {summary.recommendedReviewAreas.map((area) => (
                         <div
                           key={area}
-                          className="rounded-2xl border border-case-border bg-black/35 p-4"
+                          className="export-review-area rounded-2xl border border-case-border bg-black/35 p-4"
                         >
                           <p className="text-sm leading-6 text-case-muted">
                             {area}
@@ -248,7 +412,7 @@ export default function ExportSummary() {
                     </div>
                   </article>
 
-                  <article className="rounded-[1.5rem] border border-case-red/40 bg-case-red/10 p-5">
+                  <article className="export-summary-block rounded-[1.5rem] border border-case-red/40 bg-case-red/10 p-5">
                     <div className="flex gap-3">
                       <ShieldAlert className="mt-1 size-5 shrink-0 text-case-red-soft" />
 
