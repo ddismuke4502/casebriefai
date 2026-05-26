@@ -152,3 +152,46 @@ body {
   background: rgba(179, 25, 43, 0.16);
   border-color: rgba(225, 77, 85, 0.75);
 }
+
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+
+  header,
+  footer,
+  #analyzer,
+  #analysis,
+  #timeline,
+  #issues,
+  #evidence,
+  .export-control-panel {
+    display: none !important;
+  }
+
+  #export {
+    padding: 0 !important;
+  }
+
+  .case-card {
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+  }
+
+  .export-preview-panel,
+  .export-generated-shell,
+  .export-summary-block {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border-color: #dddddd !important;
+  }
+
+  .text-case-muted,
+  .text-case-parchment,
+  .text-case-gold,
+  .text-case-red-soft {
+    color: #111111 !important;
+  }
+}
