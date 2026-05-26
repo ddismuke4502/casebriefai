@@ -1,3 +1,5 @@
+import ProgressBar from "@/components/ui/ProgressBar";
+
 import {
   ArrowRight,
   FileSearch,
@@ -84,8 +86,8 @@ export default function Home() {
 
             <h1 className="max-w-4xl text-5xl font-black leading-[0.95] tracking-tight md:text-7xl">
               Analyze case files like a{" "}
-              <span className="noir-text-gradient">detective-grade</span>{" "}
-              legal AI system.
+              <span className="noir-text-gradient">detective-grade</span> legal
+              AI system.
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg leading-8 text-case-muted">
@@ -158,14 +160,7 @@ export default function Home() {
               </div>
 
               <div className="rounded-2xl border border-case-border bg-case-surface/80 p-4">
-                <div className="mb-3 flex items-center justify-between text-sm">
-                  <span className="text-case-muted">AI scan progress</span>
-                  <span className="font-bold text-case-gold">68%</span>
-                </div>
-
-                <div className="h-3 overflow-hidden rounded-full bg-black">
-                  <div className="h-full w-[68%] rounded-full bg-gradient-to-r from-case-gold to-case-red" />
-                </div>
+                <ProgressBar value={68} label="AI scan progress" tone="gold" />
               </div>
 
               <div className="mt-5 space-y-3">
@@ -216,7 +211,10 @@ export default function Home() {
               const Icon = feature.icon;
 
               return (
-                <article key={feature.title} className="case-card rounded-3xl p-6">
+                <article
+                  key={feature.title}
+                  className="case-card rounded-3xl p-6"
+                >
                   <div className="mb-5 flex size-12 items-center justify-center rounded-2xl border border-case-border bg-black/40">
                     <Icon className="size-6 text-case-gold" />
                   </div>
@@ -262,12 +260,15 @@ export default function Home() {
           <div className="flex flex-col gap-4 md:flex-row md:items-start">
             <ShieldAlert className="size-7 shrink-0 text-case-red-soft" />
             <div>
-              <h2 className="text-xl font-black">Non-Legal-Advice Disclaimer</h2>
+              <h2 className="text-xl font-black">
+                Non-Legal-Advice Disclaimer
+              </h2>
               <p className="mt-3 max-w-5xl leading-7 text-case-muted">
-                CaseBrief AI is a portfolio mockup created to demonstrate product
-                design, AI-assisted workflow UX, frontend engineering, structured
-                data modeling, and animation. It does not provide legal advice,
-                legal representation, case strategy, or attorney-client services.
+                CaseBrief AI is a portfolio mockup created to demonstrate
+                product design, AI-assisted workflow UX, frontend engineering,
+                structured data modeling, and animation. It does not provide
+                legal advice, legal representation, case strategy, or
+                attorney-client services.
               </p>
             </div>
           </div>
