@@ -1,3 +1,8 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   CalendarClock,
   FileSearch,
@@ -25,32 +30,144 @@ const confidenceTone = (confidence: number): "green" | "gold" | "red" => {
 };
 
 export default function TimelineSection() {
+  const sectionRef = useRef<HTMLElement | null>(null);
   const timeline = mockCaseAnalysis.timeline;
 
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (prefersReducedMotion) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      gsap.from(".timeline-header-item", {
+        y: 28,
+        opacity: 0,
+        duration: 0.75,
+        stagger: 0.12,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 78%",
+          once: true,
+        },
+      });
+
+      gsap.from(".timeline-summary-card", {
+        x: -36,
+        opacity: 0,
+        duration: 0.85,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".timeline-layout",
+          start: "top 78%",
+          once: true,
+        },
+      });
+
+      gsap.from(".timeline-summary-stat", {
+        y: 22,
+        opacity: 0,
+        duration: 0.55,
+        stagger: 0.08,
+        delay: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".timeline-summary-stats",
+          start: "top 82%",
+          once: true,
+        },
+      });
+
+      gsap.fromTo(
+        ".timeline-spine",
+        {
+          scaleY: 0,
+          transformOrigin: "top center",
+        },
+        {
+          scaleY: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".timeline-events",
+            start: "top 80%",
+            once: true,
+          },
+        },
+      );
+
+      gsap.from(".timeline-event-marker", {
+        scale: 0,
+        opacity: 0,
+        duration: 0.45,
+        stagger: 0.12,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: ".timeline-events",
+          start: "top 78%",
+          once: true,
+        },
+      });
+
+      gsap.from(".timeline-event-card", {
+        x: 42,
+        opacity: 0,
+        scale: 0.985,
+        duration: 0.7,
+        stagger: 0.12,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".timeline-events",
+          start: "top 78%",
+          once: true,
+        },
+      });
+
+      gsap.to(".timeline-pulse", {
+        scale: 1.1,
+        opacity: 0.65,
+        duration: 1.6,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="timeline" className="px-6 py-20 md:px-10">
+    <section ref={sectionRef} id="timeline" className="px-6 py-20 md:px-10">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.32em] text-case-gold">
+            <p className="timeline-header-item text-sm font-bold uppercase tracking-[0.32em] text-case-gold">
               Timeline Builder
             </p>
 
-            <h2 className="mt-3 text-4xl font-black leading-tight md:text-5xl">
+            <h2 className="timeline-header-item mt-3 text-4xl font-black leading-tight md:text-5xl">
               Reconstruct the case sequence from scattered document clues.
             </h2>
           </div>
 
-          <p className="leading-8 text-case-muted">
+          <p className="timeline-header-item leading-8 text-case-muted">
             The timeline organizes extracted dates, reports, witness references,
             filings, and supporting document mentions into a chronological review
             path.
           </p>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr]">
-          <aside className="case-card h-fit rounded-[2rem] p-6">
-            <div className="flex size-14 items-center justify-center rounded-2xl border border-case-border bg-case-gunmetal">
+        <div className="timeline-layout grid gap-8 lg:grid-cols-[0.7fr_1.3fr]">
+          <aside className="timeline-summary-card case-card h-fit rounded-[2rem] p-6">
+            <div className="timeline-pulse flex size-14 items-center justify-center rounded-2xl border border-case-border bg-case-gunmetal">
               <GitBranch className="size-7 text-case-gold" />
             </div>
 
@@ -64,8 +181,8 @@ export default function TimelineSection() {
 
             <div className="case-divider my-6" />
 
-            <div className="grid gap-4">
-              <div className="rounded-2xl border border-case-border bg-black/35 p-4">
+            <div className="timeline-summary-stats grid gap-4">
+              <div className="timeline-summary-stat rounded-2xl border border-case-border bg-black/35 p-4">
                 <p className="text-3xl font-black text-case-gold">
                   {timeline.length}
                 </p>
@@ -74,14 +191,14 @@ export default function TimelineSection() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-case-border bg-black/35 p-4">
+              <div className="timeline-summary-stat rounded-2xl border border-case-border bg-black/35 p-4">
                 <p className="text-3xl font-black text-case-red-soft">2</p>
                 <p className="mt-1 text-sm text-case-muted">
                   evidence gaps connected to dates
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-case-border bg-black/35 p-4">
+              <div className="timeline-summary-stat rounded-2xl border border-case-border bg-black/35 p-4">
                 <p className="text-3xl font-black text-case-green">High</p>
                 <p className="mt-1 text-sm text-case-muted">
                   timeline usefulness score
@@ -100,16 +217,16 @@ export default function TimelineSection() {
             </div>
           </aside>
 
-          <div className="relative">
-            <div className="absolute bottom-8 left-5 top-8 hidden w-px bg-gradient-to-b from-case-gold/0 via-case-border-gold to-case-gold/0 md:block" />
+          <div className="timeline-events relative">
+            <div className="timeline-spine absolute bottom-8 left-5 top-8 hidden w-px bg-gradient-to-b from-case-gold/0 via-case-border-gold to-case-gold/0 md:block" />
 
             <div className="space-y-5">
               {timeline.map((event, index) => (
                 <article
                   key={event.id}
-                  className="case-card relative rounded-[1.75rem] p-5 md:ml-12"
+                  className="timeline-event-card case-card relative rounded-[1.75rem] p-5 md:ml-12"
                 >
-                  <div className="absolute -left-[3.25rem] top-8 hidden size-10 items-center justify-center rounded-full border border-case-border-gold bg-case-gunmetal text-sm font-black text-case-gold shadow-2xl md:flex">
+                  <div className="timeline-event-marker absolute -left-[3.25rem] top-8 hidden size-10 items-center justify-center rounded-full border border-case-border-gold bg-case-gunmetal text-sm font-black text-case-gold shadow-2xl md:flex">
                     {index + 1}
                   </div>
 
