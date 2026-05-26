@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import gsap from "gsap";
 import {
   CheckCircle2,
   FileText,
@@ -34,6 +35,8 @@ const activeStatuses: ScanStatus[] = [
 ];
 
 export default function UploadAnalyzer() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
   const [status, setStatus] = useState<ScanStatus>("idle");
   const [isRunning, setIsRunning] = useState(false);
 
@@ -44,6 +47,118 @@ export default function UploadAnalyzer() {
   const currentIndex = scanOrder.indexOf(status);
   const isComplete = status === "complete";
   const isIdle = status === "idle";
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(".upload-copy", {
+        y: 28,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.12,
+        ease: "power3.out",
+      });
+
+      gsap.from(".upload-card", {
+        y: 36,
+        opacity: 0,
+        duration: 0.9,
+        delay: 0.15,
+        ease: "power3.out",
+      });
+
+      gsap.from(".scan-step-row", {
+        x: 24,
+        opacity: 0,
+        duration: 0.55,
+        stagger: 0.06,
+        delay: 0.35,
+        ease: "power3.out",
+      });
+
+      gsap.to(".scanner-orb", {
+        scale: 1.12,
+        opacity: 0.75,
+        duration: 1.4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section || status === "idle") return;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".scanner-progress-panel",
+        {
+          scale: 0.985,
+          opacity: 0.86,
+        },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.35,
+          ease: "power2.out",
+        },
+      );
+
+      gsap.fromTo(
+        `[data-scan-status="${status}"]`,
+        {
+          x: 18,
+          opacity: 0.65,
+        },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.45,
+          ease: "power3.out",
+        },
+      );
+
+      if (status === "complete") {
+        gsap.fromTo(
+          ".scan-complete-panel",
+          {
+            y: 18,
+            opacity: 0,
+            scale: 0.98,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.55,
+            ease: "back.out(1.5)",
+          },
+        );
+      }
+    }, section);
+
+    return () => ctx.revert();
+  }, [status]);
 
   const runMockScan = async () => {
     if (isRunning) return;
@@ -64,24 +179,24 @@ export default function UploadAnalyzer() {
   };
 
   return (
-    <section id="analyzer" className="px-6 py-20 md:px-10">
+    <section ref={sectionRef} id="analyzer" className="px-6 py-20 md:px-10">
       <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
-          <p className="text-sm font-bold uppercase tracking-[0.32em] text-case-gold">
+          <p className="upload-copy text-sm font-bold uppercase tracking-[0.32em] text-case-gold">
             Mock Upload Flow
           </p>
 
-          <h2 className="mt-3 text-4xl font-black leading-tight md:text-5xl">
+          <h2 className="upload-copy mt-3 text-4xl font-black leading-tight md:text-5xl">
             Upload a case file and simulate AI extraction.
           </h2>
 
-          <p className="mt-5 max-w-xl leading-8 text-case-muted">
+          <p className="upload-copy mt-5 max-w-xl leading-8 text-case-muted">
             This flow does not process real legal documents. It demonstrates how
             a production AI legal-tech product could guide users through upload,
             scan, extraction, timeline generation, issue spotting, and export.
           </p>
 
-          <div className="mt-8 rounded-3xl border border-case-red/40 bg-case-red/10 p-5">
+          <div className="upload-copy mt-8 rounded-3xl border border-case-red/40 bg-case-red/10 p-5">
             <div className="flex gap-3">
               <ShieldAlert className="mt-1 size-5 shrink-0 text-case-red-soft" />
               <p className="text-sm leading-6 text-case-muted">
@@ -92,8 +207,10 @@ export default function UploadAnalyzer() {
           </div>
         </div>
 
-        <div className="case-card rounded-[2rem] p-5">
-          <div className="rounded-[1.5rem] border border-case-border bg-black/45 p-5">
+        <div className="upload-card case-card relative overflow-hidden rounded-[2rem] p-5">
+          <div className="scanner-orb pointer-events-none absolute right-8 top-8 size-32 rounded-full bg-case-gold/8 blur-3xl" />
+
+          <div className="relative rounded-[1.5rem] border border-case-border bg-black/45 p-5">
             <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
               <div>
                 <div className="inline-flex items-center gap-2 rounded-full border border-case-border bg-case-gunmetal/80 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-case-gold">
@@ -161,7 +278,7 @@ export default function UploadAnalyzer() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-3xl border border-case-border bg-case-surface/70 p-5">
+            <div className="scanner-progress-panel mt-6 rounded-3xl border border-case-border bg-case-surface/70 p-5">
               <ProgressBar
                 value={currentStep.progress}
                 label={currentStep.label}
@@ -186,7 +303,8 @@ export default function UploadAnalyzer() {
                 return (
                   <div
                     key={stepStatus}
-                    className={`flex items-center gap-4 rounded-2xl border p-4 transition duration-300 ${
+                    data-scan-status={stepStatus}
+                    className={`scan-step-row flex items-center gap-4 rounded-2xl border p-4 transition duration-300 ${
                       shouldHighlight
                         ? "border-case-border-gold bg-case-gold/8"
                         : "border-case-border bg-black/30"
@@ -233,7 +351,7 @@ export default function UploadAnalyzer() {
             </div>
 
             {isComplete && (
-              <div className="mt-6 rounded-3xl border border-case-green/40 bg-case-green/10 p-5">
+              <div className="scan-complete-panel mt-6 rounded-3xl border border-case-green/40 bg-case-green/10 p-5">
                 <div className="flex gap-3">
                   <CheckCircle2 className="mt-1 size-5 shrink-0 text-case-green" />
                   <div>
