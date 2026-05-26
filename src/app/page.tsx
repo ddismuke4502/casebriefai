@@ -1,4 +1,5 @@
 import ProgressBar from "@/components/ui/ProgressBar";
+import UploadAnalyzer from "@/components/sections/UploadAnalyzer";
 
 import {
   ArrowRight,
@@ -190,6 +191,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <UploadAnalyzer />
 
       <section id="analysis" className="px-6 py-20 md:px-10">
         <div className="mx-auto max-w-7xl">
