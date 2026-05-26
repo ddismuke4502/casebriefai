@@ -1,26 +1,154 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #030405;
+  --foreground: #f4ead2;
+
+  --case-black: #030405;
+  --case-charcoal: #0a0c0e;
+  --case-gunmetal: #15191d;
+  --case-gunmetal-2: #1d2328;
+  --case-surface: #0d0f11;
+  --case-surface-2: #151719;
+
+  --case-gold: #d99a24;
+  --case-gold-soft: #f0c15a;
+  --case-amber: #a86416;
+
+  --case-red: #9f1628;
+  --case-red-soft: #d4474f;
+
+  --case-green: #71823a;
+
+  --case-parchment: #f4ead2;
+  --case-muted: #a89d89;
+  --case-border: rgba(154, 164, 174, 0.18);
+  --case-border-gold: rgba(217, 154, 36, 0.28);
+
+  --case-shadow: 0 28px 90px rgba(0, 0, 0, 0.78);
+  --case-glow: 0 0 42px rgba(217, 154, 36, 0.08);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-case-black: var(--case-black);
+  --color-case-charcoal: var(--case-charcoal);
+  --color-case-surface: var(--case-surface);
+  --color-case-surface-2: var(--case-surface-2);
+  --color-case-gunmetal: var(--case-gunmetal);
+  --color-case-gunmetal-2: var(--case-gunmetal-2);
+
+  --color-case-gold: var(--case-gold);
+  --color-case-gold-soft: var(--case-gold-soft);
+  --color-case-amber: var(--case-amber);
+
+  --color-case-red: var(--case-red);
+  --color-case-red-soft: var(--case-red-soft);
+
+  --color-case-green: var(--case-green);
+
+  --color-case-parchment: var(--case-parchment);
+  --color-case-muted: var(--case-muted);
+  --color-case-border: var(--case-border);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(217, 154, 36, 0.055), transparent 30rem),
+    radial-gradient(circle at top right, rgba(159, 22, 40, 0.045), transparent 28rem),
+    linear-gradient(135deg, #030405 0%, #07090b 42%, #0d0f11 100%);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: rgba(245, 185, 66, 0.35);
+  color: var(--case-parchment);
+}
+
+.case-grid-bg {
+  background-image:
+    linear-gradient(rgba(154, 164, 174, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(154, 164, 174, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.case-card {
+  border: 1px solid var(--case-border);
+  background:
+    linear-gradient(145deg, rgba(21, 25, 29, 0.94), rgba(5, 6, 7, 0.92));
+  box-shadow: var(--case-shadow);
+}
+
+.case-glow {
+  box-shadow: var(--case-glow);
+}
+
+.case-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(154, 164, 174, 0.32),
+    transparent
+  );
+}
+
+.noir-text-gradient {
+  background: linear-gradient(135deg, #f8f0dc 0%, #f5b942 48%, #b3192b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.signal-button {
+  border: 1px solid rgba(245, 185, 66, 0.55);
+  background:
+    linear-gradient(135deg, rgba(245, 185, 66, 0.98), rgba(200, 120, 23, 0.98));
+  color: #080604;
+  box-shadow:
+    0 14px 34px rgba(245, 185, 66, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+.signal-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow:
+    0 18px 44px rgba(245, 185, 66, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.redline-button {
+  border: 1px solid rgba(179, 25, 43, 0.55);
+  background: rgba(179, 25, 43, 0.08);
+  color: var(--case-parchment);
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.redline-button:hover {
+  transform: translateY(-2px);
+  background: rgba(179, 25, 43, 0.16);
+  border-color: rgba(225, 77, 85, 0.75);
 }
