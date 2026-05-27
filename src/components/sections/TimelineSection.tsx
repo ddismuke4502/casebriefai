@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TimelineItem from "@/components/cards/TimelineItem";
+import SectionHeader from "@/components/ui/SectionHeader";
 import { GitBranch, ShieldAlert } from "lucide-react";
 
 import { mockCaseAnalysis } from "@/data/mockCaseData";
@@ -127,15 +128,12 @@ export default function TimelineSection() {
     <section ref={sectionRef} id="timeline" className="px-6 py-20 md:px-10">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-          <div>
-            <p className="timeline-header-item text-sm font-bold uppercase tracking-[0.32em] text-case-gold">
-              Timeline Builder
-            </p>
-
-            <h2 className="timeline-header-item mt-3 text-4xl font-black leading-tight md:text-5xl">
-              Reconstruct the case sequence from scattered document clues.
-            </h2>
-          </div>
+          <SectionHeader
+            eyebrow="Timeline Builder"
+            title="Reconstruct the case sequence from scattered document clues."
+            eyebrowClassName="timeline-header-item"
+            titleClassName="timeline-header-item"
+          />
 
           <p className="timeline-header-item leading-8 text-case-muted">
             The timeline organizes extracted dates, reports, witness references,
