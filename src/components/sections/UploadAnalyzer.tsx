@@ -214,24 +214,24 @@ export default function UploadAnalyzer({
   };
 
   return (
-    <section ref={sectionRef} id="analyzer" className="px-6 py-20 md:px-10">
-      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+    <section ref={sectionRef} id="analyzer" className="px-4 py-16 sm:px-6 md:px-10 md:py-20">
+      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
         <div>
           <p className="upload-copy text-sm font-bold uppercase tracking-[0.32em] text-case-gold">
             Mock Upload Flow
           </p>
 
-          <h2 className="upload-copy mt-3 text-4xl font-black leading-tight md:text-5xl">
+          <h2 className="upload-copy mt-3 text-3xl font-black leading-tight sm:text-4xl md:text-5xl">
             Upload a case file and simulate AI extraction.
           </h2>
 
-          <p className="upload-copy mt-5 max-w-xl leading-8 text-case-muted">
+          <p className="upload-copy mt-5 max-w-xl text-sm leading-7 text-case-muted sm:text-base sm:leading-8">
             This flow does not process real legal documents. It demonstrates how
             a production AI legal-tech product could guide users through upload,
             scan, extraction, timeline generation, issue spotting, and export.
           </p>
 
-          <div className="upload-copy mt-8 rounded-3xl border border-case-red/40 bg-case-red/10 p-5">
+          <div className="upload-copy mt-6 rounded-3xl border border-case-red/40 bg-case-red/10 p-4 sm:mt-8 sm:p-5">
             <div className="flex gap-3">
               <ShieldAlert className="mt-1 size-5 shrink-0 text-case-red-soft" />
               <p className="text-sm leading-6 text-case-muted">
@@ -242,18 +242,18 @@ export default function UploadAnalyzer({
           </div>
         </div>
 
-        <div className="upload-card case-card relative overflow-hidden rounded-[2rem] p-5">
+        <div className="upload-card case-card relative overflow-hidden rounded-[1.5rem] p-4 sm:rounded-[2rem] sm:p-5">
           <div className="scanner-orb pointer-events-none absolute right-8 top-8 size-32 rounded-full bg-case-gold/8 blur-3xl" />
 
-          <div className="relative rounded-[1.5rem] border border-case-border bg-black/45 p-5">
-            <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+          <div className="relative rounded-[1.25rem] border border-case-border bg-black/45 p-4 sm:rounded-[1.5rem] sm:p-5">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <div className="inline-flex items-center gap-2 rounded-full border border-case-border bg-case-gunmetal/80 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-case-gold">
                   <Radar className="size-4" />
                   AI Case Scanner
                 </div>
 
-                <h3 className="mt-4 text-2xl font-black">demo-case-file.pdf</h3>
+                <h3 className="mt-4 break-words text-xl font-black sm:text-2xl">demo-case-file.pdf</h3>
 
                 <p className="mt-2 text-sm leading-6 text-case-muted">
                   Simulated legal packet containing incident notes, party
@@ -273,8 +273,8 @@ export default function UploadAnalyzer({
               </div>
             </div>
 
-            <div className="mt-6 rounded-3xl border border-dashed border-case-border bg-case-gunmetal/35 p-5">
-              <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+            <div className="mt-6 rounded-3xl border border-dashed border-case-border bg-case-gunmetal/35 p-4 sm:p-5">
+              <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
                 <div className="flex items-center gap-4">
                   <div className="flex size-12 items-center justify-center rounded-2xl bg-black/50">
                     <Upload className="size-6 text-case-gold" />
@@ -284,28 +284,30 @@ export default function UploadAnalyzer({
                     <p className="font-bold text-case-parchment">
                       Mock document ready
                     </p>
-                    <p className="mt-1 text-sm text-case-muted">
+                    <p className="mt-1 text-xs leading-5 text-case-muted sm:text-sm">
                       Click analyze to trigger the scanning workflow.
                     </p>
                   </div>
                 </div>
 
-                <div className="flex gap-3">
+                <div className="grid gap-3 sm:grid-cols-2 xl:flex xl:shrink-0">
                   <Button
-                    onClick={runMockScan}
-                    disabled={isRunning}
-                    variant="signal"
-                    size="md"
-                  >
+  onClick={runMockScan}
+  disabled={isRunning}
+  variant="signal"
+  size="md"
+  fullWidth
+>
                     {isIdle ? "Analyze File" : "Run Again"}
                   </Button>
 
                   <Button
-                    onClick={resetScan}
-                    disabled={isRunning && !isComplete}
-                    variant="redline"
-                    size="md"
-                  >
+  onClick={resetScan}
+  disabled={isRunning && !isComplete}
+  variant="redline"
+  size="md"
+  fullWidth
+>
                     <RotateCcw className="size-4" />
                     Reset
                   </Button>
@@ -313,7 +315,7 @@ export default function UploadAnalyzer({
               </div>
             </div>
 
-            <div className="scanner-progress-panel mt-6 rounded-3xl border border-case-border bg-case-surface/70 p-5">
+            <div className="scanner-progress-panel mt-6 rounded-3xl border border-case-border bg-case-surface/70 p-4 sm:p-5">
               <ProgressBar
                 value={currentStep.progress}
                 label={currentStep.label}
@@ -339,7 +341,7 @@ export default function UploadAnalyzer({
                   <div
                     key={stepStatus}
                     data-scan-status={stepStatus}
-                    className={`scan-step-row flex items-center gap-4 rounded-2xl border p-4 transition duration-300 ${
+                    className={`scan-step-row flex items-start gap-3 rounded-2xl border p-4 transition duration-300 sm:items-center sm:gap-4 ${
                       shouldHighlight
                         ? "border-case-border-gold bg-case-gold/8"
                         : "border-case-border bg-black/30"
@@ -372,7 +374,7 @@ export default function UploadAnalyzer({
                         {step?.label}
                       </p>
 
-                      <p className="mt-1 text-sm text-case-muted">
+                      <p className="mt-1 text-xs leading-5 text-case-muted sm:text-sm">
                         {step?.description}
                       </p>
                     </div>
@@ -386,7 +388,7 @@ export default function UploadAnalyzer({
             </div>
 
             {isComplete && (
-              <div className="scan-complete-panel mt-6 rounded-3xl border border-case-green/40 bg-case-green/10 p-5">
+              <div className="scan-complete-panel mt-6 rounded-3xl border border-case-green/40 bg-case-green/10 p-4 sm:p-5">
                 <div className="flex gap-3">
                   <CheckCircle2 className="mt-1 size-5 shrink-0 text-case-green" />
                   <div>
