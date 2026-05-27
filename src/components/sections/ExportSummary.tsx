@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 
 import { mockCaseAnalysis } from "@/data/mockCaseData";
+import { Button } from "@/components/ui/Button";
 
 export default function ExportSummary() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -296,18 +297,24 @@ export default function ExportSummary() {
             <div className="case-divider my-6" />
 
             <div className="export-action-list space-y-3">
-              <button
+              <Button
                 onClick={handleGenerate}
-                className="export-action-button signal-button flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-black"
+                variant="signal"
+                size="md"
+                fullWidth
+                className="export-action-button"
               >
                 <Sparkles className="size-5" />
                 {hasGenerated ? "Regenerate Summary" : "Generate Summary"}
-              </button>
+              </Button>
 
-              <button
+              <Button
                 onClick={handleCopy}
                 disabled={!hasGenerated}
-                className="export-action-button redline-button flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-50"
+                variant="redline"
+                size="md"
+                fullWidth
+                className="export-action-button"
               >
                 {hasCopied ? (
                   <>
@@ -320,25 +327,31 @@ export default function ExportSummary() {
                     Copy Summary
                   </>
                 )}
-              </button>
+              </Button>
 
-              <button
+              <Button
                 onClick={handleDownload}
                 disabled={!hasGenerated}
-                className="export-action-button redline-button flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-50"
+                variant="redline"
+                size="md"
+                fullWidth
+                className="export-action-button"
               >
                 <Download className="size-5" />
                 Download Summary
-              </button>
+              </Button>
 
-              <button
+              <Button
                 onClick={handlePrint}
                 disabled={!hasGenerated}
-                className="export-action-button redline-button flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-50"
+                variant="redline"
+                size="md"
+                fullWidth
+                className="export-action-button"
               >
                 <Printer className="size-5" />
                 Print Preview
-              </button>
+              </Button>
             </div>
 
             <div className="mt-6 rounded-3xl border border-case-red/40 bg-case-red/10 p-4">
