@@ -116,14 +116,14 @@ export default function DisclaimerStrip() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="px-6 py-8 md:px-10">
+    <section ref={sectionRef} className="px-4 py-8 sm:px-6 md:px-10">
       <div className="mx-auto max-w-7xl">
-        <div className="disclaimer-shell relative overflow-hidden rounded-[2rem] border border-case-red/35 bg-case-red/10 p-5 md:p-6">
+        <div className="disclaimer-shell relative overflow-hidden rounded-[1.5rem] border border-case-red/35 bg-case-red/10 p-4 sm:rounded-[2rem] sm:p-5 md:p-6">
           <div className="disclaimer-scanline" />
 
-          <div className="relative grid gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-            <div className="flex items-start gap-4">
-              <div className="disclaimer-alert-icon flex size-12 shrink-0 items-center justify-center rounded-2xl border border-case-red/40 bg-black/35">
+          <div className="relative grid gap-5 xl:grid-cols-[0.8fr_1.2fr] xl:items-center">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+              <div className="disclaimer-alert-icon flex size-11 shrink-0 items-center justify-center rounded-2xl border border-case-red/40 bg-black/35 sm:size-12">
                 <AlertTriangle className="size-6 text-case-red-soft" />
               </div>
 
@@ -133,13 +133,13 @@ export default function DisclaimerStrip() {
                 </p>
 
                 <h2
-                  className="disclaimer-copy glitch-text mt-2 text-2xl font-black md:text-3xl"
-                  data-text="Portfolio mockup. Not legal advice."
-                >
+  className="disclaimer-copy glitch-text mt-2 text-xl font-black leading-tight sm:text-2xl md:text-3xl"
+  data-text="Portfolio mockup. Not legal advice."
+>
                   Portfolio mockup. Not legal advice.
                 </h2>
 
-                <p className="disclaimer-copy mt-3 leading-7 text-case-muted">
+                <p className="disclaimer-copy mt-3 text-sm leading-7 text-case-muted sm:text-base">
                   CaseBrief AI demonstrates legal-tech product design,
                   structured data modeling, AI workflow UX, and frontend
                   engineering patterns.
@@ -147,14 +147,14 @@ export default function DisclaimerStrip() {
               </div>
             </div>
 
-            <div className="grid gap-3 md:grid-cols-3">
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
               {disclaimerPoints.map((point) => {
                 const Icon = point.icon;
 
                 return (
                   <article
                     key={point.label}
-                    className="disclaimer-point rounded-2xl border border-case-border bg-black/35 p-4"
+                    className="disclaimer-point rounded-2xl border border-case-border bg-black/35 p-4 sm:min-h-37.5"
                   >
                     <div className="mb-3 flex items-center gap-2 text-case-gold">
                       <Icon className="size-4" />
