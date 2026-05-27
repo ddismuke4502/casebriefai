@@ -2,6 +2,7 @@ import ProgressBar from "@/components/ui/ProgressBar";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CaseBriefExperience from "@/components/CaseBriefExperience";
+import DisclaimerStrip from "@/components/sections/DisclaimerStrip";
 import HeroSection from "@/components/sections/HeroSection";
 
 import {
@@ -51,6 +52,8 @@ export default function Home() {
       <Navbar />
 
       <HeroSection />
+
+      <DisclaimerStrip />
 
       <CaseBriefExperience />
 
