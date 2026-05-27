@@ -1,6 +1,7 @@
 "use client";
 
 import EvidenceItem from "@/components/cards/EvidenceItem";
+import SectionHeader from "@/components/ui/SectionHeader";
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -218,22 +219,19 @@ export default function EvidenceChecklist() {
     <section ref={sectionRef} id="evidence" className="px-6 py-20 md:px-10">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
-          <div>
-            <p className="evidence-header-item text-sm font-bold uppercase tracking-[0.32em] text-case-gold">
-              Evidence Checklist
-            </p>
+  <SectionHeader
+    eyebrow="Evidence Checklist"
+    title="Track what is available, missing, or needs review."
+    eyebrowClassName="evidence-header-item"
+    titleClassName="evidence-header-item"
+  />
 
-            <h2 className="evidence-header-item mt-3 text-4xl font-black leading-tight md:text-5xl">
-              Track what is available, missing, or needs review.
-            </h2>
-          </div>
-
-          <p className="evidence-header-item leading-8 text-case-muted">
-            The checklist converts extracted case references into a structured
-            review workflow. It helps identify what the mock packet contains,
-            what appears absent, and what needs follow-up verification.
-          </p>
-        </div>
+  <p className="evidence-header-item leading-8 text-case-muted">
+    The checklist converts extracted case references into a structured review
+    workflow. It helps identify what the mock packet contains, what appears
+    absent, and what needs follow-up verification.
+  </p>
+</div>
 
         <div className="evidence-metric-grid grid gap-5 md:grid-cols-3">
           <article className="evidence-metric-card case-card rounded-3xl p-5">
