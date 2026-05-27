@@ -16,6 +16,7 @@ import {
 
 import { mockCaseAnalysis } from "@/data/mockCaseData";
 import { Button } from "@/components/ui/Button";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function ExportSummary() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -263,15 +264,12 @@ export default function ExportSummary() {
     <section ref={sectionRef} id="export" className="px-6 py-20 md:px-10">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
-          <div>
-            <p className="export-header-item text-sm font-bold uppercase tracking-[0.32em] text-case-gold">
-              Export Summary
-            </p>
-
-            <h2 className="export-header-item mt-3 text-4xl font-black leading-tight md:text-5xl">
-              Turn the analysis into a clean review packet.
-            </h2>
-          </div>
+          <SectionHeader
+            eyebrow="Export Summary"
+            title="Turn the analysis into a clean review packet."
+            eyebrowClassName="export-header-item"
+            titleClassName="export-header-item"
+          />
 
           <p className="export-header-item leading-8 text-case-muted">
             The export flow simulates how CaseBrief AI would package extracted
