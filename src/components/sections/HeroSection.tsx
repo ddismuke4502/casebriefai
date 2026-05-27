@@ -134,25 +134,25 @@ export default function HeroSection() {
   return (
     <section
       ref={sectionRef}
-      className="case-grid-bg relative min-h-screen overflow-hidden px-6 py-6 md:px-10"
+      className="case-grid-bg relative overflow-hidden px-4 py-12 sm:px-6 md:min-h-screen md:px-10 md:py-6"
     >
-      <div className="hero-signal pointer-events-none absolute left-1/2 top-20 size-[32rem] -translate-x-1/2 rounded-full bg-case-gold/5 blur-3xl" />
+      <div className="hero-signal pointer-events-none absolute left-1/2 top-16 size-[20rem] -translate-x-1/2 rounded-full bg-case-gold/5 blur-3xl sm:size-[26rem] md:top-20 md:size-[32rem]" />
       <div className="pointer-events-none absolute right-0 top-0 size-[24rem] rounded-full bg-case-red/5 blur-3xl" />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 py-20 md:grid-cols-[1.05fr_0.95fr] md:py-24">
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 py-8 sm:py-12 md:grid-cols-[1.05fr_0.95fr] md:gap-12 md:py-24">
         <div>
-          <div className="hero-eyebrow mb-6 inline-flex items-center gap-2 rounded-full border border-case-border bg-case-gunmetal/80 px-4 py-2 text-sm text-case-muted">
+          <div className="hero-eyebrow mb-5 inline-flex max-w-full items-center gap-2 rounded-full border border-case-border bg-case-gunmetal/80 px-3 py-2 text-xs text-case-muted sm:px-4 sm:text-sm">
             <Sparkles className="size-4 text-case-gold" />
             AI-assisted mock case review platform
           </div>
 
-          <h1 className="hero-title max-w-4xl text-5xl font-black leading-[0.95] tracking-tight md:text-7xl">
+          <h1 className="hero-title max-w-4xl text-4xl font-black leading-[1.02] tracking-tight sm:text-5xl md:text-7xl md:leading-[0.95]">
             Analyze case files like a{" "}
             <span className="noir-text-gradient">detective-grade</span> legal AI
             system.
           </h1>
 
-          <p className="hero-copy mt-6 max-w-2xl text-lg leading-8 text-case-muted">
+          <p className="hero-copy mt-5 max-w-2xl text-base leading-7 text-case-muted sm:text-lg sm:leading-8">
             CaseBrief AI is a portfolio-grade legal document analyzer mockup
             that simulates document upload, extracted case facts, timeline
             generation, issue spotting, evidence checklists, and exportable
@@ -160,18 +160,28 @@ export default function HeroSection() {
           </p>
 
           <div className="hero-actions mt-8 flex flex-col gap-4 sm:flex-row">
-            <LinkButton href="#analyzer" variant="signal" size="lg">
+            <LinkButton
+              href="#analyzer"
+              variant="signal"
+              size="lg"
+              className="w-full sm:w-auto"
+            >
               Analyze Mock Case File
               <ArrowRight className="size-5" />
             </LinkButton>
 
-            <LinkButton href="#disclaimer" variant="redline" size="lg">
+            <LinkButton
+              href="#disclaimer"
+              variant="redline"
+              size="lg"
+              className="w-full sm:w-auto"
+            >
               Read Disclaimer
               <ShieldAlert className="size-5" />
             </LinkButton>
           </div>
 
-          <div className="mt-10 grid max-w-xl grid-cols-3 gap-3">
+          <div className="mt-8 grid max-w-xl grid-cols-1 gap-3 sm:grid-cols-3 md:mt-10">
             <div className="hero-stat case-card rounded-2xl p-4">
               <p className="text-2xl font-black text-case-gold">92%</p>
               <p className="mt-1 text-xs text-case-muted">
@@ -195,17 +205,17 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="hero-panel case-card relative rounded-[2rem] p-5">
+        <div className="hero-panel case-card relative rounded-[1.5rem] p-4 sm:rounded-[2rem] sm:p-5">
           <div className="absolute -right-10 -top-10 size-40 rounded-full bg-case-gold/5 blur-3xl" />
           <div className="absolute -bottom-10 -left-10 size-40 rounded-full bg-case-red/5 blur-3xl" />
 
-          <div className="relative rounded-[1.5rem] border border-case-border bg-black/55 p-5">
-            <div className="mb-5 flex items-center justify-between">
+          <div className="relative rounded-[1.25rem] border border-case-border bg-black/55 p-4 sm:rounded-[1.5rem] sm:p-5">
+            <div className="mb-5 flex items-start justify-between gap-4">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.28em] text-case-gold">
                   Active Review
                 </p>
-                <h2 className="mt-2 text-2xl font-black">
+                <h2 className="mt-2 text-xl font-black sm:text-2xl">
                   State v. Demo Client
                 </h2>
               </div>
