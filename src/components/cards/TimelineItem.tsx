@@ -2,6 +2,7 @@ import { CalendarClock, FileSearch } from "lucide-react";
 
 import { TimelineEvent } from "@/types/caseBrief";
 import ProgressBar from "@/components/ui/ProgressBar";
+import Badge from "@/components/ui/Badge";
 
 type TimelineItemProps = {
   event: TimelineEvent;
@@ -39,9 +40,7 @@ export default function TimelineItem({ event, index }: TimelineItemProps) {
               {formatDate(event.date)}
             </div>
 
-            <div className="rounded-full border border-case-border bg-case-gunmetal px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-case-muted">
-              Event {index + 1}
-            </div>
+            <Badge tone="gunmetal">Event {index + 1}</Badge>
           </div>
 
           <h3 className="text-2xl font-black">{event.title}</h3>

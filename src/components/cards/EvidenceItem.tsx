@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 
 import { EvidenceItem as EvidenceItemType, EvidenceStatus } from "@/types/caseBrief";
+import Badge from "@/components/ui/Badge";
 
 type EvidenceItemProps = {
   item: EvidenceItemType;
@@ -16,26 +17,26 @@ const statusStyles: Record<
   EvidenceStatus,
   {
     icon: ElementType;
-    labelClass: string;
+    badgeTone: "green" | "red" | "gold";
     iconClass: string;
     borderClass: string;
   }
 > = {
   Available: {
     icon: CheckCircle2,
-    labelClass: "border-case-green/40 bg-case-green/10 text-case-green",
+    badgeTone: "green",
     iconClass: "text-case-green",
     borderClass: "border-case-green/35",
   },
   Missing: {
     icon: XCircle,
-    labelClass: "border-case-red/45 bg-case-red/10 text-case-red-soft",
+    badgeTone: "red",
     iconClass: "text-case-red-soft",
     borderClass: "border-case-red/40",
   },
   "Needs Review": {
     icon: FileQuestion,
-    labelClass: "border-case-border-gold bg-case-gold/10 text-case-gold",
+    badgeTone: "gold",
     iconClass: "text-case-gold",
     borderClass: "border-case-border-gold",
   },
@@ -64,11 +65,7 @@ export default function EvidenceItem({ item }: EvidenceItemProps) {
           </div>
         </div>
 
-        <span
-          className={`rounded-full border px-3 py-1 text-xs font-black uppercase tracking-[0.16em] ${style.labelClass}`}
-        >
-          {item.status}
-        </span>
+        <Badge tone={style.badgeTone}>{item.status}</Badge>
       </div>
 
       <div className="rounded-2xl border border-case-border bg-black/35 p-4">

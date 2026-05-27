@@ -1,5 +1,5 @@
 import { AlertTriangle, Scale, ShieldAlert } from "lucide-react";
-
+import Badge from "@/components/ui/Badge";
 import { LegalIssue, RiskLevel } from "@/types/caseBrief";
 
 type IssueCardProps = {
@@ -10,26 +10,26 @@ const riskStyles: Record<
   RiskLevel,
   {
     label: string;
-    badgeClass: string;
+    badgeTone: "red" | "gold" | "green";
     iconClass: string;
     borderClass: string;
   }
 > = {
   High: {
     label: "High Review Priority",
-    badgeClass: "border-case-red/50 bg-case-red/15 text-case-red-soft",
+    badgeTone: "red",
     iconClass: "text-case-red-soft",
     borderClass: "border-case-red/45",
   },
   Medium: {
     label: "Medium Review Priority",
-    badgeClass: "border-case-border-gold bg-case-gold/10 text-case-gold",
+    badgeTone: "gold",
     iconClass: "text-case-gold",
     borderClass: "border-case-border-gold",
   },
   Low: {
     label: "Low Review Priority",
-    badgeClass: "border-case-green/40 bg-case-green/10 text-case-green",
+    badgeTone: "green",
     iconClass: "text-case-green",
     borderClass: "border-case-green/35",
   },
@@ -47,11 +47,7 @@ export default function IssueCard({ issue }: IssueCardProps) {
           <AlertTriangle className={`size-6 ${style.iconClass}`} />
         </div>
 
-        <span
-          className={`rounded-full border px-3 py-1 text-xs font-black uppercase tracking-[0.16em] ${style.badgeClass}`}
-        >
-          {issue.riskLevel}
-        </span>
+        <Badge tone={style.badgeTone}>{issue.riskLevel}</Badge>
       </div>
 
       <p className="text-xs font-bold uppercase tracking-[0.24em] text-case-muted">
