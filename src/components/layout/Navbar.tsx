@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Menu, Scale, ShieldAlert, X } from "lucide-react";
+import { LinkButton } from "@/components/ui/Button";
 
 const navLinks = [
   {
@@ -40,7 +41,11 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-case-border bg-case-black/88 px-4 py-4 backdrop-blur-xl md:px-10">
       <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4">
-        <a href="#" onClick={closeMenu} className="flex min-w-0 items-center gap-3">
+        <a
+          href="#"
+          onClick={closeMenu}
+          className="flex min-w-0 items-center gap-3"
+        >
           <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-case-border bg-case-gunmetal case-glow">
             <Scale className="size-5 text-case-gold" />
           </div>
@@ -76,12 +81,9 @@ export default function Navbar() {
             Disclaimer
           </a>
 
-          <a
-            href="#analyzer"
-            className="signal-button rounded-full px-4 py-2 text-sm font-black"
-          >
+          <LinkButton href="#analyzer" variant="signal" size="sm">
             Analyze
-          </a>
+          </LinkButton>
         </div>
 
         <button
@@ -97,9 +99,7 @@ export default function Navbar() {
 
       <div
         className={`mx-auto max-w-7xl overflow-hidden transition-all duration-300 lg:hidden ${
-          isMenuOpen
-            ? "max-h-[520px] opacity-100"
-            : "max-h-0 opacity-0"
+          isMenuOpen ? "max-h-[520px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <div className="mt-4 rounded-[1.5rem] border border-case-border bg-case-gunmetal/95 p-4 shadow-2xl">
@@ -119,22 +119,24 @@ export default function Navbar() {
           <div className="case-divider my-4" />
 
           <div className="grid gap-3 sm:grid-cols-2">
-            <a
+            <LinkButton
               href="#disclaimer"
               onClick={closeMenu}
-              className="redline-button inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold"
+              variant="redline"
+              size="md"
             >
               <ShieldAlert className="size-4" />
               Disclaimer
-            </a>
+            </LinkButton>
 
-            <a
+            <LinkButton
               href="#analyzer"
               onClick={closeMenu}
-              className="signal-button inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-black"
+              variant="signal"
+              size="md"
             >
               Analyze File
-            </a>
+            </LinkButton>
           </div>
         </div>
       </div>
