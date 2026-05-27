@@ -14,6 +14,7 @@ import {
 
 import { mockCaseAnalysis } from "@/data/mockCaseData";
 import FactCard from "@/components/cards/FactCard";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function AnalysisDashboard() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -141,15 +142,12 @@ export default function AnalysisDashboard() {
     <section ref={sectionRef} id="analysis" className="px-6 py-20 md:px-10">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-          <div>
-            <p className="analysis-header-item text-sm font-bold uppercase tracking-[0.32em] text-case-gold">
-              Extracted Case Intelligence
-            </p>
-
-            <h2 className="analysis-header-item mt-3 text-4xl font-black leading-tight md:text-5xl">
-              Structured facts pulled from the mock case file.
-            </h2>
-          </div>
+          <SectionHeader
+            eyebrow="Extracted Case Intelligence"
+            title="Structured facts pulled from the mock case file."
+            eyebrowClassName="analysis-header-item"
+            titleClassName="analysis-header-item"
+          />
 
           <p className="analysis-header-item leading-8 text-case-muted">
             This dashboard transforms an unstructured legal document packet into
@@ -270,14 +268,12 @@ export default function AnalysisDashboard() {
 
         <div className="mt-8">
           <div className="fact-heading mb-5 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-            <div>
-              <p className="fact-heading-item text-sm font-bold uppercase tracking-[0.32em] text-case-gold">
-                Fact Extraction
-              </p>
-              <h3 className="fact-heading-item mt-3 text-3xl font-black">
-                Key facts detected
-              </h3>
-            </div>
+            <SectionHeader
+              eyebrow="Fact Extraction"
+              title="Key facts detected"
+              eyebrowClassName="fact-heading-item"
+              titleClassName="fact-heading-item text-3xl md:text-3xl"
+            />
 
             <p className="fact-heading-item max-w-xl text-sm leading-6 text-case-muted">
               Each fact includes a mock confidence score and source reference to
