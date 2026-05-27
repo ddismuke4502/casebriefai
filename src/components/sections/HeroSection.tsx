@@ -10,12 +10,12 @@ import {
   Gavel,
   LockKeyhole,
   Radar,
-  Scale,
   ShieldAlert,
   Sparkles,
 } from "lucide-react";
 
 import ProgressBar from "@/components/ui/ProgressBar";
+import { LinkButton } from "@/components/ui/Button";
 
 const analysisSteps = [
   "Upload mock case file",
@@ -139,8 +139,6 @@ export default function HeroSection() {
       <div className="hero-signal pointer-events-none absolute left-1/2 top-20 size-[32rem] -translate-x-1/2 rounded-full bg-case-gold/5 blur-3xl" />
       <div className="pointer-events-none absolute right-0 top-0 size-[24rem] rounded-full bg-case-red/5 blur-3xl" />
 
-      
-
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 py-20 md:grid-cols-[1.05fr_0.95fr] md:py-24">
         <div>
           <div className="hero-eyebrow mb-6 inline-flex items-center gap-2 rounded-full border border-case-border bg-case-gunmetal/80 px-4 py-2 text-sm text-case-muted">
@@ -162,21 +160,15 @@ export default function HeroSection() {
           </p>
 
           <div className="hero-actions mt-8 flex flex-col gap-4 sm:flex-row">
-            <a
-              href="#analyzer"
-              className="signal-button inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-bold"
-            >
+            <LinkButton href="#analyzer" variant="signal" size="lg">
               Analyze Mock Case File
               <ArrowRight className="size-5" />
-            </a>
+            </LinkButton>
 
-            <a
-              href="#disclaimer"
-              className="redline-button inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-bold"
-            >
+            <LinkButton href="#disclaimer" variant="redline" size="lg">
               Read Disclaimer
               <ShieldAlert className="size-5" />
-            </a>
+            </LinkButton>
           </div>
 
           <div className="mt-10 grid max-w-xl grid-cols-3 gap-3">
@@ -234,7 +226,11 @@ export default function HeroSection() {
                   className="hero-scan-step flex items-center gap-3 rounded-2xl border border-case-border bg-black/35 p-4"
                 >
                   <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-case-gold text-sm font-black text-black">
-                    {index < 2 ? <CheckCircle2 className="size-4" /> : index + 1}
+                    {index < 2 ? (
+                      <CheckCircle2 className="size-4" />
+                    ) : (
+                      index + 1
+                    )}
                   </div>
 
                   <div className="flex-1">
@@ -242,7 +238,9 @@ export default function HeroSection() {
                   </div>
 
                   {index === 2 && <Radar className="size-4 text-case-gold" />}
-                  {index === 3 && <FileSearch className="size-4 text-case-red-soft" />}
+                  {index === 3 && (
+                    <FileSearch className="size-4 text-case-red-soft" />
+                  )}
                   {index === 4 && <Gavel className="size-4 text-case-muted" />}
                 </div>
               ))}
