@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AlertTriangle, BrainCircuit, FileWarning } from "lucide-react";
-
+import SectionHeader from "@/components/ui/SectionHeader";
 import { mockCaseAnalysis } from "@/data/mockCaseData";
 import IssueCard from "@/components/cards/IssueCard";
 
@@ -106,16 +106,12 @@ export default function IssueSpottingSection() {
     <section ref={sectionRef} id="issues" className="px-6 py-20 md:px-10">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
-          <div>
-            <p className="issue-header-item text-sm font-bold uppercase tracking-[0.32em] text-case-gold">
-              Issue Spotting
-            </p>
-
-            <h2 className="issue-header-item mt-3 text-4xl font-black leading-tight md:text-5xl">
-              Flag possible review areas without pretending to give legal
-              advice.
-            </h2>
-          </div>
+          <SectionHeader
+            eyebrow="Issue Spotting"
+            title="Flag possible review areas without pretending to give legal advice."
+            eyebrowClassName="issue-header-item"
+            titleClassName="issue-header-item"
+          />
 
           <p className="issue-header-item leading-8 text-case-muted">
             CaseBrief AI frames issue spotting as review assistance. It surfaces
