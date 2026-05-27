@@ -16,6 +16,7 @@ import {
 import { scanSteps } from "@/data/mockCaseData";
 import { ScanStatus } from "@/types/caseBrief";
 import ProgressBar from "@/components/ui/ProgressBar";
+import { Button } from "@/components/ui/Button";
 
 const scanOrder: ScanStatus[] = [
   "idle",
@@ -290,22 +291,24 @@ export default function UploadAnalyzer({
                 </div>
 
                 <div className="flex gap-3">
-                  <button
+                  <Button
                     onClick={runMockScan}
                     disabled={isRunning}
-                    className="signal-button rounded-full px-5 py-3 text-sm font-black disabled:cursor-not-allowed disabled:opacity-60"
+                    variant="signal"
+                    size="md"
                   >
                     {isIdle ? "Analyze File" : "Run Again"}
-                  </button>
+                  </Button>
 
-                  <button
+                  <Button
                     onClick={resetScan}
                     disabled={isRunning && !isComplete}
-                    className="redline-button inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-50"
+                    variant="redline"
+                    size="md"
                   >
                     <RotateCcw className="size-4" />
                     Reset
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>
