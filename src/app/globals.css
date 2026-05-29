@@ -67,12 +67,36 @@ html {
 
 body {
   min-height: 100vh;
+  overflow-x: hidden;
   background:
     radial-gradient(circle at top left, rgba(217, 154, 36, 0.055), transparent 30rem),
     radial-gradient(circle at top right, rgba(159, 22, 40, 0.045), transparent 28rem),
     linear-gradient(135deg, #030405 0%, #07090b 42%, #0d0f11 100%);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+section[id],
+footer[id] {
+  scroll-margin-top: 96px;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--case-gold);
+  outline-offset: 4px;
+}
+
+@media (max-width: 640px) {
+  section[id],
+  footer[id] {
+    scroll-margin-top: 88px;
+  }
 }
 
 ::selection {
