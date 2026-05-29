@@ -9,6 +9,7 @@ import TimelineSection from "@/components/sections/TimelineSection";
 import IssueSpottingSection from "@/components/sections/IssueSpottingSection";
 import EvidenceChecklist from "@/components/sections/EvidenceChecklist";
 import ExportSummary from "@/components/sections/ExportSummary";
+import ResultSkeleton from "@/components/sections/ResultSkeleton";
 import useGsapReveal from "@/hooks/useGsapReveal";
 
 export default function CaseBriefExperience() {
@@ -51,12 +52,14 @@ export default function CaseBriefExperience() {
         onAnalysisReset={handleAnalysisReset}
       />
 
-      {!hasCompletedAnalysis ? (
+      {hasStartedAnalysis && !hasCompletedAnalysis ? (
+        <ResultSkeleton />
+      ) : !hasCompletedAnalysis ? (
         <section
-  ref={lockedResultsRef}
-  id="analysis"
-  className="px-4 py-16 sm:px-6 md:px-10 md:py-20"
->
+          ref={lockedResultsRef}
+          id="analysis"
+          className="px-4 py-16 sm:px-6 md:px-10 md:py-20"
+        >
           <div className="mx-auto max-w-7xl">
             <div className="locked-results-reveal case-card rounded-[1.5rem] p-4 sm:rounded-[2rem] sm:p-6 md:p-10">
               <div className="grid gap-8 xl:grid-cols-[0.85fr_1.15fr] xl:items-center">
@@ -84,11 +87,11 @@ export default function CaseBriefExperience() {
                   </p>
 
                   <a
-  href="#analyzer"
-  className="locked-results-reveal signal-button mt-8 inline-flex w-full justify-center rounded-full px-6 py-3 text-sm font-black sm:w-auto"
->
-  Go to Analyzer
-</a>
+                    href="#analyzer"
+                    className="locked-results-reveal signal-button mt-8 inline-flex w-full justify-center rounded-full px-6 py-3 text-sm font-black sm:w-auto"
+                  >
+                    Go to Analyzer
+                  </a>
                 </div>
 
                 <div className="locked-results-reveal rounded-[1.25rem] border border-case-border bg-black/40 p-4 sm:rounded-[1.5rem] sm:p-5">
@@ -112,7 +115,9 @@ export default function CaseBriefExperience() {
                         key={item}
                         className="locked-results-reveal flex flex-col gap-3 rounded-2xl border border-case-border bg-case-gunmetal/40 p-4 sm:flex-row sm:items-center sm:justify-between"
                       >
-                        <p className="text-sm font-bold text-case-muted sm:text-base">{item}</p>
+                        <p className="text-sm font-bold text-case-muted sm:text-base">
+                          {item}
+                        </p>
                         <span className="w-fit rounded-full border border-case-border bg-black/35 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-case-muted">
                           Locked
                         </span>

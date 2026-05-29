@@ -297,3 +297,42 @@ body {
     animation: none;
   }
 }
+
+@keyframes skeleton-sweep {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+.case-skeleton {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--case-border);
+  background:
+    linear-gradient(145deg, rgba(21, 25, 29, 0.78), rgba(5, 6, 7, 0.88));
+}
+
+.case-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 60%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(217, 154, 36, 0.08),
+    rgba(244, 234, 210, 0.06),
+    transparent
+  );
+  animation: skeleton-sweep 1.8s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-skeleton::after {
+    animation: none;
+  }
+}
