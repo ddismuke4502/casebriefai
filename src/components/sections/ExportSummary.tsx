@@ -17,11 +17,13 @@ import {
 import { mockCaseAnalysis } from "@/data/mockCaseData";
 import { Button } from "@/components/ui/Button";
 import SectionHeader from "@/components/ui/SectionHeader";
+import Skeleton from "@/components/ui/Skeleton";
 
 export default function ExportSummary() {
   const sectionRef = useRef<HTMLElement | null>(null);
 
   const [hasGenerated, setHasGenerated] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const [hasCopied, setHasCopied] = useState(false);
 
   const summary = mockCaseAnalysis.exportSummary;
@@ -219,7 +221,13 @@ export default function ExportSummary() {
   }, [hasGenerated]);
 
   const handleGenerate = () => {
-    setHasGenerated(true);
+    setIsGenerating(true);
+    setHasGenerated(false);
+
+    window.setTimeout(() => {
+      setIsGenerating(false);
+      setHasGenerated(true);
+    }, 950);
   };
 
   const handleCopy = async () => {
@@ -303,18 +311,25 @@ export default function ExportSummary() {
             <div className="export-action-list grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
               <Button
                 onClick={handleGenerate}
+                disabled={isGenerating}
                 variant="signal"
                 size="md"
                 fullWidth
                 className="export-action-button"
               >
-                <Sparkles className="size-5" />
-                {hasGenerated ? "Regenerate Summary" : "Generate Summary"}
+                <Sparkles
+                  className={isGenerating ? "size-5 animate-spin" : "size-5"}
+                />
+                {isGenerating
+                  ? "Generating..."
+                  : hasGenerated
+                    ? "Regenerate Summary"
+                    : "Generate Summary"}
               </Button>
 
               <Button
                 onClick={handleCopy}
-                disabled={!hasGenerated}
+                disabled={!hasGenerated || isGenerating}
                 variant="redline"
                 size="md"
                 fullWidth
@@ -335,7 +350,7 @@ export default function ExportSummary() {
 
               <Button
                 onClick={handleDownload}
-                disabled={!hasGenerated}
+                disabled={!hasGenerated || isGenerating}
                 variant="redline"
                 size="md"
                 fullWidth
@@ -347,7 +362,7 @@ export default function ExportSummary() {
 
               <Button
                 onClick={handlePrint}
-                disabled={!hasGenerated}
+                disabled={!hasGenerated || isGenerating}
                 variant="redline"
                 size="md"
                 fullWidth
@@ -406,7 +421,28 @@ export default function ExportSummary() {
                 </div>
               </div>
 
-              {!hasGenerated ? (
+              {isGenerating ? (
+                <div className="rounded-[1.25rem] border border-case-border bg-case-gunmetal/35 p-5 sm:rounded-[1.5rem] sm:p-8">
+                  <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-case-border bg-black/35 px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] text-case-gold">
+                    <Sparkles className="size-4 animate-spin" />
+                    Assembling Export Packet
+                  </div>
+
+                  <div className="space-y-4">
+                    <Skeleton className="h-8 w-3/4" />
+                    <Skeleton className="h-24 w-full" />
+
+                    <div className="grid gap-3 md:grid-cols-2">
+                      <Skeleton className="h-20" />
+                      <Skeleton className="h-20" />
+                      <Skeleton className="h-20" />
+                      <Skeleton className="h-20" />
+                    </div>
+
+                    <Skeleton className="h-28 w-full" />
+                  </div>
+                </div>
+              ) : !hasGenerated ? (
                 <div className="rounded-[1.25rem] border border-dashed border-case-border bg-case-gunmetal/35 p-5 text-center sm:rounded-[1.5rem] sm:p-8">
                   <Sparkles className="mx-auto size-10 text-case-gold" />
                   <h4 className="mt-4 text-xl font-black sm:text-2xl">
