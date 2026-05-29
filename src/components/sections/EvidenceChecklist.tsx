@@ -216,30 +216,34 @@ export default function EvidenceChecklist() {
   }, [selectedCategory, selectedStatus]);
 
   return (
-    <section ref={sectionRef} id="evidence" className="px-6 py-20 md:px-10">
+    <section
+      ref={sectionRef}
+      id="evidence"
+      className="px-4 py-16 sm:px-6 md:px-10 md:py-20"
+    >
       <div className="mx-auto max-w-7xl">
-        <div className="mb-12 grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
-  <SectionHeader
-    eyebrow="Evidence Checklist"
-    title="Track what is available, missing, or needs review."
-    eyebrowClassName="evidence-header-item"
-    titleClassName="evidence-header-item"
-  />
+        <div className="mb-10 grid gap-6 xl:grid-cols-[0.95fr_1.05fr] xl:items-end md:mb-12">
+          <SectionHeader
+            eyebrow="Evidence Checklist"
+            title="Track what is available, missing, or needs review."
+            eyebrowClassName="evidence-header-item"
+            titleClassName="evidence-header-item"
+          />
 
-  <p className="evidence-header-item leading-8 text-case-muted">
-    The checklist converts extracted case references into a structured review
-    workflow. It helps identify what the mock packet contains, what appears
-    absent, and what needs follow-up verification.
-  </p>
-</div>
+          <p className="evidence-header-item leading-8 text-case-muted">
+            The checklist converts extracted case references into a structured
+            review workflow. It helps identify what the mock packet contains,
+            what appears absent, and what needs follow-up verification.
+          </p>
+        </div>
 
-        <div className="evidence-metric-grid grid gap-5 md:grid-cols-3">
-          <article className="evidence-metric-card case-card rounded-3xl p-5">
-            <div className="evidence-check-pulse mb-5 flex size-12 items-center justify-center rounded-2xl border border-case-green/35 bg-case-green/10">
+        <div className="evidence-metric-grid grid gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-5">
+          <article className="evidence-metric-card case-card rounded-[1.5rem] p-4 sm:rounded-3xl sm:p-5">
+            <div className="evidence-check-pulse mb-5 flex size-11 items-center justify-center rounded-2xl border border-case-green/35 bg-case-green/10 sm:size-12">
               <CheckCircle2 className="size-6 text-case-green" />
             </div>
 
-            <p className="text-4xl font-black text-case-green">
+            <p className="text-3xl font-black text-case-green sm:text-4xl">
               {availableCount}
             </p>
 
@@ -249,11 +253,11 @@ export default function EvidenceChecklist() {
           </article>
 
           <article className="evidence-metric-card case-card rounded-3xl p-5">
-            <div className="mb-5 flex size-12 items-center justify-center rounded-2xl border border-case-red/40 bg-case-red/10">
+            <div className="mb-5 flex size-11 items-center justify-center rounded-2xl border border-case-red/40 bg-case-red/10 sm:size-12">
               <XCircle className="size-6 text-case-red-soft" />
             </div>
 
-            <p className="text-4xl font-black text-case-red-soft">
+            <p className="text-3xl font-black text-case-red-soft sm:text-4xl">
               {missingCount}
             </p>
 
@@ -263,11 +267,11 @@ export default function EvidenceChecklist() {
           </article>
 
           <article className="evidence-metric-card case-card rounded-3xl p-5">
-            <div className="mb-5 flex size-12 items-center justify-center rounded-2xl border border-case-border-gold bg-case-gold/10">
+            <div className="mb-5 flex size-11 items-center justify-center rounded-2xl border border-case-border-gold bg-case-gold/10 sm:size-12">
               <FileQuestion className="size-6 text-case-gold" />
             </div>
 
-            <p className="text-4xl font-black text-case-gold">
+            <p className="text-3xl font-black text-case-gold sm:text-4xl">
               {needsReviewCount}
             </p>
 
@@ -277,10 +281,10 @@ export default function EvidenceChecklist() {
           </article>
         </div>
 
-        <div className="evidence-filter-panel mt-8 rounded-[2rem] border border-case-border bg-case-gunmetal/40 p-5">
-          <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div className="flex items-center gap-3">
-              <div className="flex size-11 items-center justify-center rounded-2xl border border-case-border bg-black/40">
+        <div className="evidence-filter-panel mt-8 rounded-[1.5rem] border border-case-border bg-case-gunmetal/40 p-4 sm:rounded-[2rem] sm:p-5">
+          <div className="mb-5 flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+            <div className="flex items-start gap-3 sm:items-center">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-2xl border border-case-border bg-black/40 sm:size-11">
                 <Filter className="size-5 text-case-gold" />
               </div>
 
@@ -292,12 +296,12 @@ export default function EvidenceChecklist() {
               </div>
             </div>
 
-            <div className="evidence-visible-count rounded-full border border-case-border bg-black/35 px-4 py-2 text-sm font-bold text-case-gold">
+            <div className="evidence-visible-count w-fit rounded-full border border-case-border bg-black/35 px-4 py-2 text-sm font-bold text-case-gold">
               {filteredEvidence.length} visible
             </div>
           </div>
 
-          <div className="grid gap-5 lg:grid-cols-2">
+          <div className="grid gap-5 xl:grid-cols-2">
             <div>
               <p className="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-case-muted">
                 Category
@@ -311,7 +315,7 @@ export default function EvidenceChecklist() {
                     <button
                       key={category}
                       onClick={() => setSelectedCategory(category)}
-                      className={`evidence-filter-button rounded-full border px-4 py-2 text-sm font-bold transition ${
+                      className={`evidence-filter-button rounded-full border px-3 py-2 text-xs font-bold transition sm:px-4 sm:text-sm ${
                         isActive
                           ? "border-case-border-gold bg-case-gold/15 text-case-gold"
                           : "border-case-border bg-black/35 text-case-muted hover:text-case-parchment"
@@ -337,7 +341,7 @@ export default function EvidenceChecklist() {
                     <button
                       key={status}
                       onClick={() => setSelectedStatus(status)}
-                      className={`evidence-filter-button rounded-full border px-4 py-2 text-sm font-bold transition ${
+                      className={`evidence-filter-button rounded-full border px-3 py-2 text-xs font-bold transition sm:px-4 sm:text-sm ${
                         isActive
                           ? "border-case-border-gold bg-case-gold/15 text-case-gold"
                           : "border-case-border bg-black/35 text-case-muted hover:text-case-parchment"
@@ -352,16 +356,16 @@ export default function EvidenceChecklist() {
           </div>
         </div>
 
-        <div className="evidence-card-grid mt-8 grid gap-5 lg:grid-cols-2">
+        <div className="evidence-card-grid mt-8 grid gap-4 xl:grid-cols-2 xl:gap-5">
           {filteredEvidence.map((item) => (
             <EvidenceItem key={item.id} item={item} />
           ))}
         </div>
 
         {filteredEvidence.length === 0 && (
-          <div className="mt-8 rounded-[2rem] border border-case-border bg-black/35 p-8 text-center">
+          <div className="mt-8 rounded-[1.5rem] border border-case-border bg-black/35 p-6 text-center sm:rounded-[2rem] sm:p-8">
             <ClipboardCheck className="mx-auto size-10 text-case-gold" />
-            <h3 className="mt-4 text-2xl font-black">
+            <h3 className="mt-4 text-xl font-black sm:text-2xl">
               No evidence items match these filters.
             </h3>
             <p className="mt-3 text-case-muted">
