@@ -125,9 +125,13 @@ export default function TimelineSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="timeline" className="px-6 py-20 md:px-10">
+    <section
+      ref={sectionRef}
+      id="timeline"
+      className="px-4 py-16 sm:px-6 md:px-10 md:py-20"
+    >
       <div className="mx-auto max-w-7xl">
-        <div className="mb-12 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+        <div className="mb-10 grid gap-6 xl:grid-cols-[0.9fr_1.1fr] xl:items-end md:mb-12">
           <SectionHeader
             eyebrow="Timeline Builder"
             title="Reconstruct the case sequence from scattered document clues."
@@ -142,15 +146,17 @@ export default function TimelineSection() {
           </p>
         </div>
 
-        <div className="timeline-layout grid gap-8 lg:grid-cols-[0.7fr_1.3fr]">
-          <aside className="timeline-summary-card case-card h-fit rounded-[2rem] p-6">
-            <div className="timeline-pulse flex size-14 items-center justify-center rounded-2xl border border-case-border bg-case-gunmetal">
+        <div className="timeline-layout grid gap-6 xl:grid-cols-[0.7fr_1.3fr] xl:gap-8">
+          <aside className="timeline-summary-card case-card h-fit rounded-[1.5rem] p-4 sm:rounded-[2rem] sm:p-6">
+            <div className="timeline-pulse flex size-12 items-center justify-center rounded-2xl border border-case-border bg-case-gunmetal sm:size-14">
               <GitBranch className="size-7 text-case-gold" />
             </div>
 
-            <h3 className="mt-6 text-2xl font-black">Case chronology</h3>
+            <h3 className="mt-5 text-xl font-black sm:mt-6 sm:text-2xl">
+              Case chronology
+            </h3>
 
-            <p className="mt-4 leading-7 text-case-muted">
+            <p className="mt-4 text-sm leading-7 text-case-muted sm:text-base">
               A strong legal review workflow depends on knowing what happened,
               when it happened, what source supports it, and whether any dates
               appear incomplete or inconsistent.
@@ -158,8 +164,8 @@ export default function TimelineSection() {
 
             <div className="case-divider my-6" />
 
-            <div className="timeline-summary-stats grid gap-4">
-              <div className="timeline-summary-stat rounded-2xl border border-case-border bg-black/35 p-4">
+            <div className="timeline-summary-stats grid gap-3 sm:grid-cols-3 xl:grid-cols-1 xl:gap-4">
+              <div className="timeline-summary-stat rounded-2xl border border-case-border bg-black/35 p-3 sm:p-4">
                 <p className="text-3xl font-black text-case-gold">
                   {timeline.length}
                 </p>
@@ -168,14 +174,14 @@ export default function TimelineSection() {
                 </p>
               </div>
 
-              <div className="timeline-summary-stat rounded-2xl border border-case-border bg-black/35 p-4">
+              <div className="timeline-summary-stat rounded-2xl border border-case-border bg-black/35 p-3 sm:p-4">
                 <p className="text-3xl font-black text-case-red-soft">2</p>
                 <p className="mt-1 text-sm text-case-muted">
                   evidence gaps connected to dates
                 </p>
               </div>
 
-              <div className="timeline-summary-stat rounded-2xl border border-case-border bg-black/35 p-4">
+              <div className="timeline-summary-stat rounded-2xl border border-case-border bg-black/35 p-3 sm:p-4">
                 <p className="text-3xl font-black text-case-green">High</p>
                 <p className="mt-1 text-sm text-case-muted">
                   timeline usefulness score
@@ -183,7 +189,7 @@ export default function TimelineSection() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-3xl border border-case-red/40 bg-case-red/10 p-4">
+            <div className="mt-5 rounded-3xl border border-case-red/40 bg-case-red/10 p-4 sm:mt-6">
               <div className="flex gap-3">
                 <ShieldAlert className="mt-1 size-5 shrink-0 text-case-red-soft" />
                 <p className="text-sm leading-6 text-case-muted">
@@ -194,8 +200,8 @@ export default function TimelineSection() {
             </div>
           </aside>
 
-          <div className="timeline-events relative">
-            <div className="timeline-spine absolute bottom-8 left-5 top-8 hidden w-px bg-gradient-to-b from-case-gold/0 via-case-border-gold to-case-gold/0 md:block" />
+          <div className="timeline-events relative min-w-0">
+            <div className="timeline-spine absolute bottom-8 left-5 top-8 hidden w-px bg-gradient-to-b from-case-gold/0 via-case-border-gold to-case-gold/0 lg:block" />
 
             <div className="space-y-5">
               {timeline.map((event, index) => (
