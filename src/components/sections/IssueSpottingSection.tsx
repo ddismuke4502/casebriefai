@@ -103,9 +103,13 @@ export default function IssueSpottingSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="issues" className="px-6 py-20 md:px-10">
+    <section
+      ref={sectionRef}
+      id="issues"
+      className="px-4 py-16 sm:px-6 md:px-10 md:py-20"
+    >
       <div className="mx-auto max-w-7xl">
-        <div className="mb-12 grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
+        <div className="mb-10 grid gap-6 xl:grid-cols-[0.95fr_1.05fr] xl:items-end md:mb-12">
           <SectionHeader
             eyebrow="Issue Spotting"
             title="Flag possible review areas without pretending to give legal advice."
@@ -120,13 +124,13 @@ export default function IssueSpottingSection() {
           </p>
         </div>
 
-        <div className="issue-metric-grid grid gap-5 md:grid-cols-3">
-          <article className="issue-metric-card case-card rounded-3xl p-5">
-            <div className="mb-5 flex size-12 items-center justify-center rounded-2xl border border-case-border bg-case-gunmetal">
+        <div className="issue-metric-grid grid gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-5">
+          <article className="issue-metric-card case-card rounded-[1.5rem] p-4 sm:rounded-3xl sm:p-5">
+            <div className="mb-5 flex size-11 sm:size-12 items-center justify-center rounded-2xl border border-case-border bg-case-gunmetal">
               <FileWarning className="size-6 text-case-gold" />
             </div>
 
-            <p className="text-4xl font-black text-case-gold">
+            <p className="text-3xl font-black text-case-gold sm:text-4xl">
               {issues.length}
             </p>
 
@@ -135,12 +139,12 @@ export default function IssueSpottingSection() {
             </p>
           </article>
 
-          <article className="issue-metric-card case-card rounded-3xl p-5">
-            <div className="issue-warning-pulse mb-5 flex size-12 items-center justify-center rounded-2xl border border-case-red/45 bg-case-red/10">
-              <AlertTriangle className="size-6 text-case-red-soft" />
+          <article className="issue-metric-card case-card rounded-[1.5rem] p-4 sm:rounded-3xl sm:p-5">
+            <div className="issue-warning-pulse mb-5 flex size-11 sm:size-12 items-center justify-center rounded-2xl border border-case-red/45 bg-case-red/10">
+              <AlertTriangle className="size-6 text-case-red-soft sm:text-4xl" />
             </div>
 
-            <p className="text-4xl font-black text-case-red-soft">
+            <p className="text-3xl font-black text-case-red-soft">
               {highRiskCount}
             </p>
 
@@ -149,12 +153,12 @@ export default function IssueSpottingSection() {
             </p>
           </article>
 
-          <article className="issue-metric-card case-card rounded-3xl p-5">
-            <div className="mb-5 flex size-12 items-center justify-center rounded-2xl border border-case-border-gold bg-case-gold/10">
+          <article className="issue-metric-card case-card rounded-[1.5rem] p-4 sm:rounded-3xl sm:p-5">
+            <div className="mb-5 flex size-11 sm:size-12 items-center justify-center rounded-2xl border border-case-border-gold bg-case-gold/10">
               <BrainCircuit className="size-6 text-case-gold" />
             </div>
 
-            <p className="text-4xl font-black text-case-gold">
+            <p className="text-3xl font-black text-case-gold sm:text-4xl">
               {mediumRiskCount}
             </p>
 
@@ -164,25 +168,25 @@ export default function IssueSpottingSection() {
           </article>
         </div>
 
-        <div className="issue-card-grid mt-8 grid gap-5 lg:grid-cols-3">
+        <div className="issue-card-grid mt-8 grid gap-4 lg:grid-cols-2 xl:grid-cols-3 xl:gap-5">
           {issues.map((issue) => (
             <IssueCard key={issue.id} issue={issue} />
           ))}
         </div>
 
-        <div className="issue-review-box mt-8 rounded-[2rem] border border-case-border bg-case-gunmetal/40 p-6">
-          <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+        <div className="issue-review-box mt-8 rounded-[1.5rem] border border-case-border bg-case-gunmetal/40 p-4 sm:rounded-[2rem] sm:p-6">
+          <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.32em] text-case-gold">
                 Product Safety Pattern
               </p>
 
-              <h3 className="mt-3 text-2xl font-black">
+              <h3 className="mt-3 text-xl font-black sm:text-2xl">
                 The AI suggests review areas. It does not decide legal strategy.
               </h3>
             </div>
 
-            <p className="max-w-2xl leading-7 text-case-muted">
+            <p className="max-w-2xl text-sm leading-7 text-case-muted sm:text-base">
               This distinction is important for a credible legal-tech product.
               The interface helps organize information, but it keeps the final
               interpretation, legal judgment, and case strategy with qualified
