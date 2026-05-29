@@ -261,9 +261,13 @@ export default function ExportSummary() {
   };
 
   return (
-    <section ref={sectionRef} id="export" className="px-6 py-20 md:px-10">
+    <section
+      ref={sectionRef}
+      id="export"
+      className="px-4 py-16 sm:px-6 md:px-10 md:py-20"
+    >
       <div className="mx-auto max-w-7xl">
-        <div className="mb-12 grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
+        <div className="mb-10 grid gap-6 xl:grid-cols-[0.95fr_1.05fr] xl:items-end md:mb-12">
           <SectionHeader
             eyebrow="Export Summary"
             title="Turn the analysis into a clean review packet."
@@ -278,15 +282,17 @@ export default function ExportSummary() {
           </p>
         </div>
 
-        <div className="export-layout grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
-          <aside className="export-control-panel case-card h-fit rounded-[2rem] p-6">
-            <div className="export-lock-pulse flex size-14 items-center justify-center rounded-2xl border border-case-border bg-case-gunmetal">
+        <div className="export-layout grid gap-6 xl:grid-cols-[0.75fr_1.25fr] xl:gap-8">
+          <aside className="export-control-panel case-card h-fit rounded-[1.5rem] p-4 sm:rounded-[2rem] sm:p-6">
+            <div className="export-lock-pulse flex size-12 items-center justify-center rounded-2xl border border-case-border bg-case-gunmetal sm:size-14">
               <FileText className="size-7 text-case-gold" />
             </div>
 
-            <h3 className="mt-6 text-2xl font-black">Export Controls</h3>
+            <h3 className="mt-5 text-xl font-black sm:mt-6 sm:text-2xl">
+              Export Controls
+            </h3>
 
-            <p className="mt-4 leading-7 text-case-muted">
+            <p className="mt-4 text-sm leading-7 text-case-muted sm:text-base">
               Generate a mock case review packet from the structured analysis.
               This is designed to demonstrate product UX, not to produce real
               legal work product.
@@ -294,7 +300,7 @@ export default function ExportSummary() {
 
             <div className="case-divider my-6" />
 
-            <div className="export-action-list space-y-3">
+            <div className="export-action-list grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
               <Button
                 onClick={handleGenerate}
                 variant="signal"
@@ -352,10 +358,10 @@ export default function ExportSummary() {
               </Button>
             </div>
 
-            <div className="mt-6 rounded-3xl border border-case-red/40 bg-case-red/10 p-4">
+            <div className="mt-5 rounded-3xl border border-case-red/40 bg-case-red/10 p-4 sm:mt-6">
               <div className="flex gap-3">
                 <ShieldAlert className="mt-1 size-5 shrink-0 text-case-red-soft" />
-                <p className="text-sm leading-6 text-case-muted">
+                <p className="text-xs leading-6 text-case-muted sm:text-sm">
                   Exported summaries are mock portfolio outputs. They are not
                   legal briefs, legal advice, or attorney-reviewed documents.
                 </p>
@@ -363,22 +369,22 @@ export default function ExportSummary() {
             </div>
           </aside>
 
-          <div className="export-preview-panel case-card rounded-[2rem] p-5">
-            <div className="rounded-[1.5rem] border border-case-border bg-black/45 p-5 md:p-7">
-              <div className="mb-6 flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+          <div className="export-preview-panel case-card rounded-[1.5rem] p-4 sm:rounded-[2rem] sm:p-5">
+            <div className="rounded-[1.25rem] border border-case-border bg-black/45 p-4 sm:rounded-[1.5rem] sm:p-5 md:p-7">
+              <div className="mb-6 flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <div className="inline-flex items-center gap-2 rounded-full border border-case-border bg-case-gunmetal/80 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-case-gold">
                     <LockKeyhole className="size-4" />
                     Generated Review Packet
                   </div>
 
-                  <h3 className="mt-5 text-3xl font-black">
+                  <h3 className="mt-5 text-2xl font-black sm:text-3xl">
                     {hasGenerated
                       ? summary.title
                       : "Summary waiting to generate"}
                   </h3>
 
-                  <p className="mt-3 max-w-2xl leading-7 text-case-muted">
+                  <p className="mt-3 max-w-2xl text-sm leading-7 text-case-muted sm:text-base">
                     {hasGenerated
                       ? "The mock export has been assembled from the analyzed case data."
                       : "Click Generate Summary to simulate the final AI export transition."}
@@ -386,7 +392,7 @@ export default function ExportSummary() {
                 </div>
 
                 <div
-                  className={`flex size-14 shrink-0 items-center justify-center rounded-2xl border ${
+                  className={`flex size-12 shrink-0 items-center justify-center rounded-2xl border sm:size-14 ${
                     hasGenerated
                       ? "border-case-green/40 bg-case-green/10"
                       : "border-case-border bg-case-gunmetal"
@@ -401,29 +407,29 @@ export default function ExportSummary() {
               </div>
 
               {!hasGenerated ? (
-                <div className="rounded-[1.5rem] border border-dashed border-case-border bg-case-gunmetal/35 p-8 text-center">
+                <div className="rounded-[1.25rem] border border-dashed border-case-border bg-case-gunmetal/35 p-5 text-center sm:rounded-[1.5rem] sm:p-8">
                   <Sparkles className="mx-auto size-10 text-case-gold" />
-                  <h4 className="mt-4 text-2xl font-black">
+                  <h4 className="mt-4 text-xl font-black sm:text-2xl">
                     Ready to generate export summary.
                   </h4>
-                  <p className="mx-auto mt-3 max-w-xl leading-7 text-case-muted">
+                  <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-case-muted sm:text-base">
                     This final step will reveal a structured case review packet
                     containing overview, findings, review areas, and disclaimer.
                   </p>
                 </div>
               ) : (
                 <div className="export-generated-shell space-y-6">
-                  <article className="export-summary-block rounded-[1.5rem] border border-case-border bg-case-gunmetal/40 p-5">
+                  <article className="export-summary-block rounded-[1.25rem] border border-case-border bg-case-gunmetal/40 p-4 sm:rounded-[1.5rem] sm:p-5">
                     <p className="text-xs font-bold uppercase tracking-[0.24em] text-case-gold">
                       Overview
                     </p>
 
-                    <p className="mt-3 leading-7 text-case-muted">
+                    <p className="mt-3 text-sm leading-7 text-case-muted sm:text-base">
                       {summary.overview}
                     </p>
                   </article>
 
-                  <article className="export-summary-block rounded-[1.5rem] border border-case-border bg-case-gunmetal/40 p-5">
+                  <article className="export-summary-block rounded-[1.25rem] border border-case-red/40 bg-case-red/10 p-4 sm:rounded-[1.5rem] sm:p-5">
                     <p className="text-xs font-bold uppercase tracking-[0.24em] text-case-gold">
                       Key Findings
                     </p>
@@ -432,10 +438,10 @@ export default function ExportSummary() {
                       {summary.keyFindings.map((finding) => (
                         <div
                           key={finding}
-                          className="export-finding-row flex gap-3 rounded-2xl border border-case-border bg-black/35 p-4"
+                          className="export-finding-row flex gap-3 rounded-2xl border border-case-border bg-black/35 p-3 sm:p-4"
                         >
                           <CheckCircle2 className="mt-1 size-5 shrink-0 text-case-gold" />
-                          <p className="text-sm leading-6 text-case-muted">
+                          <p className="text-xs leading-6 text-case-muted sm:text-sm">
                             {finding}
                           </p>
                         </div>
@@ -448,13 +454,13 @@ export default function ExportSummary() {
                       Recommended Review Areas
                     </p>
 
-                    <div className="mt-4 grid gap-3 md:grid-cols-2">
+                    <div className="mt-4 grid gap-3 xl:grid-cols-2">
                       {summary.recommendedReviewAreas.map((area) => (
                         <div
                           key={area}
-                          className="export-review-area rounded-2xl border border-case-border bg-black/35 p-4"
+                          className="export-review-area rounded-2xl border border-case-border bg-black/35 p-3 sm:p-4"
                         >
-                          <p className="text-sm leading-6 text-case-muted">
+                          <p className="text-xs leading-6 text-case-muted sm:text-sm">
                             {area}
                           </p>
                         </div>
@@ -471,7 +477,7 @@ export default function ExportSummary() {
                           Disclaimer
                         </p>
 
-                        <p className="mt-3 text-sm leading-6 text-case-muted">
+                        <p className="mt-3 text-xs leading-6 text-case-muted sm:text-sm">
                           {summary.disclaimer}
                         </p>
                       </div>
