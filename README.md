@@ -1,5 +1,7 @@
 # CaseBrief AI
 
+[![CI](https://github.com/ddismuke4502/casebriefai/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ddismuke4502/casebriefai/actions/workflows/ci.yml)
+
 CaseBrief AI is a noir-inspired legal-tech SaaS mockup that simulates an AI-assisted legal document analysis workflow. The project demonstrates how a serious AI product could help organize complex legal documents into structured, reviewable information without presenting itself as legal advice.
 
 Live Demo: https://casebriefai.vercel.app
